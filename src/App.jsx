@@ -6,6 +6,7 @@ import Problem from './components/Problem';
 import Solution from './components/Solution';
 import TokenPower from './components/TokenPower';
 import TheOrder from './components/TheOrder';
+import NeetiBook from './components/NeetiBook';
 import Roadmap from './components/Roadmap';
 import Quiz from './components/Quiz';
 import CallToAction from './components/CallToAction';
@@ -25,6 +26,7 @@ function App() {
         <Solution />
         <TokenPower />
         <TheOrder />
+        <NeetiBook />
         <Roadmap />
         <Quiz />
         <CallToAction />
