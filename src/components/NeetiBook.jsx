@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import bookImg1 from '../assets/neeti_book1.png';
 import bookImg2 from '../assets/neeti_book2.png';
 import bookImg3 from '../assets/neeti_book3.png';
+import bookImg4 from '../assets/bullmonk-hero.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -35,6 +36,13 @@ const NeetiBook = () => {
       image: bookImg3,
       philosophy: "The seed grows in the dark dirt, unseen by the world until it sprouts. The Monk does not swing his sword at the air. He waits for the perfect strike.",
       economics: "Dollar Cost Averaging (DCA) during the bear market. Buying when blood is in the streets. Letting trades come to you. Identifying deep value and macro bottoms."
+    },
+    {
+      title: "Book IV: The Kingdom of the Awakened",
+      subtitle: "The BullMonk Society",
+      image: bookImg4,
+      philosophy: "Individual wealth is fleeting. A collective order shifts the paradigm. The cycle will end, and it will begin again. The Monk is never surprised.",
+      economics: "How conviction filters out short speculators. Achieving escape velocity from active labor. Preparing deployment capital for the inevitable crash to generate generational wealth."
     }
   ];
 
