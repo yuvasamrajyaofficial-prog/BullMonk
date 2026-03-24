@@ -34,7 +34,7 @@ const Hero = () => {
       
       <div className="container grid grid-2" style={{ alignItems: 'center', zIndex: 2 }}>
         {/* Left: Content */}
-        <div ref={textRef} style={styles.content}>
+        <div ref={textRef} style={styles.content} className="hero-content text-center-mobile">
           <h2 className="heading-md text-gradient-gold" style={{ fontFamily: 'var(--font-body)', fontWeight: 300, letterSpacing: '2px', textTransform: 'uppercase' }}>
             While the market panics...
           </h2>
@@ -46,7 +46,7 @@ const Hero = () => {
             BullMonk has awakened. The cycle belongs to those with discipline.
           </p>
           
-          <div className="flex-center" style={{ justifyContent: 'flex-start', gap: '1.5rem' }}>
+          <div className="flex-center hero-buttons" style={{ justifyContent: 'flex-start', gap: '1.5rem' }}>
             <button className="btn btn-primary animate-pulse">
               Join The Order
             </button>

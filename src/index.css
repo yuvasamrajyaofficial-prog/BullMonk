@@ -53,7 +53,7 @@ h6 {
 
 /* Typography Utilities */
 .heading-xl {
-  font-size: clamp(3rem, 8vw, 6rem);
+  font-size: clamp(2.5rem, 8vw, 6rem);
   text-transform: uppercase;
   letter-spacing: 2px;
 }

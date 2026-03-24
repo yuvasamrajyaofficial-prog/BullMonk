@@ -70,7 +70,7 @@ const Roadmap = () => {
 
           {/* Phase 1 */}
           <div ref={addToRefs} className="glass-card roadmap-phase" style={{...styles.phase, ...styles.leftPhase}}>
-            <div style={styles.phaseNode}>1</div>
+            <div className="roadmap-node-left" style={styles.phaseNode}>1</div>
             <h3 className="heading-md text-gold mb-1">Awakening</h3>
             <p className="text-secondary">
               The monk opens his eyes. We build the foundation, gather the first disciples, and establish the philosophy. Stealth accumulation begins.
@@ -79,7 +79,7 @@ const Roadmap = () => {
 
           {/* Phase 2 */}
           <div ref={addToRefs} className="glass-card roadmap-phase" style={{...styles.phase, ...styles.rightPhase}}>
-            <div style={styles.phaseNode}>2</div>
+            <div className="roadmap-node-right" style={styles.phaseNode}>2</div>
             <h3 className="heading-md text-gold mb-1">Expansion</h3>
             <p className="text-secondary">
               The teachings spread. Viral mechanics activate. We convert the panic sellers into disciplined holders. The Order multiplies.
@@ -88,7 +88,7 @@ const Roadmap = () => {
 
           {/* Phase 3 */}
           <div ref={addToRefs} className="glass-card roadmap-phase" style={{...styles.phase, ...styles.leftPhase}}>
-            <div style={styles.phaseNode}>3</div>
+            <div className="roadmap-node-left" style={styles.phaseNode}>3</div>
             <h3 className="heading-md text-gold mb-1">Domination</h3>
             <p className="text-secondary">
               The market recognizes the silent giant. CEX listings follow community demand. We swallow the weak hands.
@@ -97,7 +97,7 @@ const Roadmap = () => {
 
           {/* Phase 4 */}
           <div ref={addToRefs} className="glass-card roadmap-phase" style={{...styles.phase, ...styles.rightPhase}}>
-            <div style={styles.phaseNode}>4</div>
+            <div className="roadmap-node-right" style={styles.phaseNode}>4</div>
             <h3 className="heading-md mb-1 glow-text">Global Order</h3>
             <p className="text-secondary">
               BullMonk is no longer a coin. It is a movement. The cycle is mastered. The believers are rewarded.
