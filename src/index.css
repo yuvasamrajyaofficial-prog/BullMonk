@@ -157,14 +157,6 @@ h6 {
     font-size: 1.1rem;
   }
 }
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  text-decoration: none;
-  border: none;
-  position: relative;
-  overflow: hidden;
-}
 
 .btn::before {
   content: "";
@@ -350,8 +342,8 @@ h6 {
     justify-content: center;
   }
   .flex-center-mobile .btn {
-      width: 100%;
-      margin-bottom: 1rem;
+    width: 100%;
+    margin-bottom: 1rem;
   }
 }
 
@@ -360,7 +352,8 @@ h6 {
   gap: 2rem;
 }
 
-.grid-2, .grid-3 {
+.grid-2,
+.grid-3 {
   grid-template-columns: 1fr;
 }
 
@@ -406,21 +399,48 @@ h6 {
 }
 
 /* Responsive adjustments */
-.hide-desktop { display: none; }
+.hide-desktop {
+  display: none;
+}
 @media (max-width: 768px) {
-  .hide-mobile { display: none !important; }
-  .hide-desktop { display: block; }
-  .text-center-mobile { text-align: center; }
-  
+  .hide-mobile {
+    display: none !important;
+  }
+  .hide-desktop {
+    display: block;
+  }
+  .text-center-mobile {
+    text-align: center;
+  }
+
   /* Roadmap specific mobile fixes */
-  .roadmap-line-bg { left: 20px !important; }
-  .roadmap-line-fill { left: 20px !important; }
-  .roadmap-phase { width: calc(100% - 50px) !important; text-align: left !important; margin-left: auto !important; margin-right: 0 !important; }
-  
+  .roadmap-line-bg {
+    left: 20px !important;
+  }
+  .roadmap-line-fill {
+    left: 20px !important;
+  }
+  .roadmap-phase {
+    width: calc(100% - 50px) !important;
+    text-align: left !important;
+    margin-left: auto !important;
+    margin-right: 0 !important;
+  }
+
   /* NeetiBook specific mobile fixes */
-  .neeti-overlay { background: linear-gradient(to bottom, transparent, rgba(10, 10, 15, 1) 100%) !important; }
-  .neeti-text { padding: 1.5rem !important; }
-  
+  .neeti-overlay {
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(10, 10, 15, 1) 100%
+    ) !important;
+  }
+  .neeti-text {
+    padding: 1.5rem !important;
+  }
+
   /* Hero specific mobile fixes */
-  .hero-visual { height: 400px !important; }
+  .hero-visual {
+    height: 400px !important;
+  }
 }
