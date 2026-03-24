@@ -10,7 +10,6 @@ const TheOrder = () => {
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
   const statsRef = useRef([]);
-  statsRef.current = [];
 
   const addToRefs = (el) => {
     if (el && !statsRef.current.includes(el)) {
@@ -73,7 +72,7 @@ const TheOrder = () => {
             The Order is growing. While the rest of the market acts on emotion, we act on strategy. Join the inner circle.
           </p>
 
-          <div className="flex-center" style={{ gap: '1.5rem', marginBottom: '4rem' }}>
+          <div className="flex-center flex-center-mobile" style={{ gap: '1.5rem', marginBottom: '4rem' }}>
             <a href="https://t.me" target="_blank" rel="noreferrer" className="btn glass-card" style={styles.socialBtn}>
               <FaTelegramPlane size={24} style={{ marginRight: '0.8rem', color: '#0088cc' }} />
               Join The Order

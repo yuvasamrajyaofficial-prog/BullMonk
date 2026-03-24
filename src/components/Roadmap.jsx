@@ -8,8 +8,6 @@ const Roadmap = () => {
   const sectionRef = useRef(null);
   const lineRef = useRef(null);
   const phasesRef = useRef([]);
-  phasesRef.current = [];
-
   const addToRefs = (el) => {
     if (el && !phasesRef.current.includes(el)) {
       phasesRef.current.push(el);
@@ -67,11 +65,11 @@ const Roadmap = () => {
 
         <div style={styles.timeline}>
           {/* Timeline Line */}
-          <div style={styles.lineBg}></div>
-          <div ref={lineRef} style={styles.lineFill}></div>
+          <div className="roadmap-line-bg" style={styles.lineBg}></div>
+          <div ref={lineRef} className="roadmap-line-fill" style={styles.lineFill}></div>
 
           {/* Phase 1 */}
-          <div ref={addToRefs} className="glass-card" style={{...styles.phase, ...styles.leftPhase}}>
+          <div ref={addToRefs} className="glass-card roadmap-phase" style={{...styles.phase, ...styles.leftPhase}}>
             <div style={styles.phaseNode}>1</div>
             <h3 className="heading-md text-gold mb-1">Awakening</h3>
             <p className="text-secondary">
@@ -80,7 +78,7 @@ const Roadmap = () => {
           </div>
 
           {/* Phase 2 */}
-          <div ref={addToRefs} className="glass-card" style={{...styles.phase, ...styles.rightPhase}}>
+          <div ref={addToRefs} className="glass-card roadmap-phase" style={{...styles.phase, ...styles.rightPhase}}>
             <div style={styles.phaseNode}>2</div>
             <h3 className="heading-md text-gold mb-1">Expansion</h3>
             <p className="text-secondary">
@@ -89,7 +87,7 @@ const Roadmap = () => {
           </div>
 
           {/* Phase 3 */}
-          <div ref={addToRefs} className="glass-card" style={{...styles.phase, ...styles.leftPhase}}>
+          <div ref={addToRefs} className="glass-card roadmap-phase" style={{...styles.phase, ...styles.leftPhase}}>
             <div style={styles.phaseNode}>3</div>
             <h3 className="heading-md text-gold mb-1">Domination</h3>
             <p className="text-secondary">
@@ -98,7 +96,7 @@ const Roadmap = () => {
           </div>
 
           {/* Phase 4 */}
-          <div ref={addToRefs} className="glass-card" style={{...styles.phase, ...styles.rightPhase}}>
+          <div ref={addToRefs} className="glass-card roadmap-phase" style={{...styles.phase, ...styles.rightPhase}}>
             <div style={styles.phaseNode}>4</div>
             <h3 className="heading-md mb-1 glow-text">Global Order</h3>
             <p className="text-secondary">
@@ -174,19 +172,5 @@ const styles = {
     zIndex: 4,
   }
 };
-
-// Add responsive adjustments dynamically
-if (typeof window !== 'undefined') {
-  // Simple hack for layout, in reality use CSS media queries
-  const isMobile = window.innerWidth < 768;
-  if(isMobile) {
-      styles.lineBg.left = '20px';
-      styles.lineFill.left = '20px';
-      styles.phase.width = 'calc(100% - 50px)';
-      styles.leftPhase.marginRight = '0';
-      styles.leftPhase.marginLeft = 'auto';
-      styles.leftPhase.textAlign = 'left';
-  }
-}
 
 export default Roadmap;

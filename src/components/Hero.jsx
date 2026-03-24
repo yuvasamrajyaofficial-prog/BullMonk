@@ -57,7 +57,7 @@ const Hero = () => {
         </div>
 
         {/* Right: Visual */}
-        <div className="flex-center" style={styles.visual}>
+        <div className="flex-center hero-visual" style={styles.visual}>
             {/* Glowing Aura Background */}
             <div style={styles.aura}></div>
             

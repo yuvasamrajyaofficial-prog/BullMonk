@@ -97,13 +97,23 @@ h6 {
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1rem;
+}
+@media (min-width: 768px) {
+  .container {
+    padding: 0 2rem;
+  }
 }
 
 .section {
-  padding: 6rem 0;
+  padding: 4rem 0;
   position: relative;
   z-index: 1;
+}
+@media (min-width: 768px) {
+  .section {
+    padding: 6rem 0;
+  }
 }
 
 .glass-card {
@@ -126,12 +136,27 @@ h6 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem 2.5rem;
+  padding: 0.8rem 1.5rem;
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 1px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  text-decoration: none;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .btn {
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+  }
+}
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -317,17 +342,35 @@ h6 {
   flex-direction: column;
 }
 
+@media (max-width: 768px) {
+  .flex-center-mobile {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+  .flex-center-mobile .btn {
+      width: 100%;
+      margin-bottom: 1rem;
+  }
+}
+
 .grid {
   display: grid;
   gap: 2rem;
 }
 
-.grid-2 {
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+.grid-2, .grid-3 {
+  grid-template-columns: 1fr;
 }
 
-.grid-3 {
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+@media (min-width: 768px) {
+  .grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .mt-1 {
@@ -363,11 +406,21 @@ h6 {
 }
 
 /* Responsive adjustments */
+.hide-desktop { display: none; }
 @media (max-width: 768px) {
-  .section {
-    padding: 4rem 0;
-  }
-  .btn {
-    padding: 0.8rem 2rem;
-  }
+  .hide-mobile { display: none !important; }
+  .hide-desktop { display: block; }
+  .text-center-mobile { text-align: center; }
+  
+  /* Roadmap specific mobile fixes */
+  .roadmap-line-bg { left: 20px !important; }
+  .roadmap-line-fill { left: 20px !important; }
+  .roadmap-phase { width: calc(100% - 50px) !important; text-align: left !important; margin-left: auto !important; margin-right: 0 !important; }
+  
+  /* NeetiBook specific mobile fixes */
+  .neeti-overlay { background: linear-gradient(to bottom, transparent, rgba(10, 10, 15, 1) 100%) !important; }
+  .neeti-text { padding: 1.5rem !important; }
+  
+  /* Hero specific mobile fixes */
+  .hero-visual { height: 400px !important; }
 }

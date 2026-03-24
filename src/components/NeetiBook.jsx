@@ -116,12 +116,12 @@ const NeetiBook = () => {
                   alt={chapters[currentPage].title} 
                   style={styles.image} 
                 />
-                <div style={styles.imageOverlay}></div>
+                <div className="neeti-overlay" style={styles.imageOverlay}></div>
               </div>
             </div>
 
             {/* Right Side: Text & Controls */}
-            <div style={styles.textSide} className="flex-column">
+            <div style={styles.textSide} className="flex-column neeti-text">
               <div style={{ flex: 1 }}>
                 <div style={styles.chapterBadge}>Chapter {currentPage + 1} of {chapters.length}</div>
                 <h3 className="heading-md text-gold mt-1 mb-1">{chapters[currentPage].title}</h3>
@@ -244,14 +244,5 @@ const styles = {
     textTransform: 'none',
   }
 };
-
-// Add responsive adjustments dynamically
-if (typeof window !== 'undefined') {
-  const isMobile = window.innerWidth < 768;
-  if(isMobile) {
-      styles.imageOverlay.background = 'linear-gradient(to bottom, transparent, rgba(10, 10, 15, 1) 100%)';
-      styles.textSide.padding = '1.5rem';
-  }
-}
 
 export default NeetiBook;

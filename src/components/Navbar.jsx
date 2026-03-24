@@ -14,7 +14,7 @@ const Navbar = () => {
         </div>
 
         {/* Links (Desktop) */}
-        <div className="nav-links" style={styles.links}>
+        <div className="nav-links hide-mobile" style={styles.links}>
           <a href="#philosophy" style={styles.link}>Philosophy</a>
           <a href="#token" style={styles.link}>Token</a>
           <a href="#order" style={styles.link}>The Order</a>
