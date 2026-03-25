@@ -22,7 +22,7 @@ const Navbar = () => {
 
         {/* CTA & Socials */}
         <div className="nav-actions flex-center" style={styles.actions}>
-            <a href="https://t.me" target="_blank" rel="noreferrer" style={styles.socialIcon}>
+            <a href="https://t.me/bullmonkcoin" target="_blank" rel="noreferrer" style={styles.socialIcon}>
                 <FaTelegramPlane size={20} />
             </a>
             <a href="https://x.com" target="_blank" rel="noreferrer" style={styles.socialIcon}>

@@ -67,7 +67,7 @@ const TheOrder = () => {
           </p>
 
           <div className="flex-center flex-center-mobile" style={{ gap: '1.5rem', marginBottom: '4rem' }}>
-            <a href="https://t.me" target="_blank" rel="noreferrer" className="btn glass-card" style={styles.socialBtn}>
+            <a href="https://t.me/bullmonkcoin" target="_blank" rel="noreferrer" className="btn glass-card" style={styles.socialBtn}>
               <FaTelegramPlane size={24} style={{ marginRight: '0.8rem', color: '#0088cc' }} />
               Join The Order
             </a>

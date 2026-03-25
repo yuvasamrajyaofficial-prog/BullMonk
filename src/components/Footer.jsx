@@ -12,7 +12,7 @@ const Footer = () => {
         </p>
         
         <div className="flex-center mb-2" style={{ gap: '1rem' }}>
-          <a href="https://t.me" style={styles.link}>Telegram</a>
+          <a href="https://t.me/bullmonkcoin" target="_blank" rel="noopener noreferrer" style={styles.link}>Telegram</a>
           <span className="text-muted">|</span>
           <a href="https://x.com" style={styles.link}>X (Twitter)</a>
           <span className="text-muted">|</span>
