@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useRef, useEffect } from "react";
 
 const ParticleBackground = () => {
@@ -27,7 +28,7 @@ const ParticleBackground = () => {
         this.size = Math.random() * 2 + 0.5;
         this.speedX = Math.random() * 0.5 - 0.25;
         this.speedY = Math.random() * 0.5 - 0.25;
-        this.opacity = Math.random() * 0.5 + 0.1;
+        this.opacity = Math.random() * 0.7 + 0.3; // Increased to ensure visibility on bright white backgrounds
 
         // Randomly assign gold or very subtle red/green
         const colorSeed = Math.random();

@@ -1,8 +1,11 @@
 import React from 'react';
-import { FaTelegramPlane } from 'react-icons/fa';
+import { FaTelegramPlane, FaSun, FaMoon } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6'; // Twitter X icon
+import { useTheme } from '../context/ThemeContext';
 
 const Navbar = () => {
+  const { theme, toggleTheme } = useTheme();
+
   return (
     <nav className="navbar" style={styles.nav}>
       <div className="container flex-between" style={styles.container}>
@@ -28,8 +31,18 @@ const Navbar = () => {
             <a href="https://x.com" target="_blank" rel="noreferrer" style={styles.socialIcon}>
                 <FaXTwitter size={20} />
             </a>
-          <button className="btn btn-outline" style={{ padding: '0.5rem 1.5rem', fontSize: '0.9rem', marginLeft: '1rem' }}>
+          <button className="btn btn-outline hide-mobile" style={{ padding: '0.4rem 1.5rem', fontSize: '0.9rem', marginLeft: '0.5rem' }}>
             Buy Now
+          </button>
+          
+          {/* Theme Toggle Button */}
+          <button 
+            onClick={toggleTheme} 
+            className="btn btn-outline" 
+            style={{ padding: '0.4rem 0.8rem', fontSize: '1rem', marginLeft: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            aria-label="Toggle Theme"
+          >
+            {theme === 'dark' ? <FaSun /> : <FaMoon />}
           </button>
         </div>
       </div>
@@ -43,7 +56,7 @@ const styles = {
     top: 0,
     width: '100%',
     zIndex: 100,
-    background: 'rgba(10, 10, 15, 0.8)',
+    background: 'var(--bg-card)',
     backdropFilter: 'blur(10px)',
     borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
     padding: '1rem 0',

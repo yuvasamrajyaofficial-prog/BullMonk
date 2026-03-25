@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap");
 
 :root {
-  /* Color Palette */
+  /* Color Palette - DARK (Default) */
   --bg-deep: #050508;
   --bg-dark: #0a0a0f;
   --bg-card: rgba(20, 20, 25, 0.7);
@@ -20,6 +20,15 @@
   --text-primary: #ffffff;
   --text-secondary: #a0a0b0;
   --text-muted: #5a5a6a;
+}
+
+[data-theme="light"] {
+  --bg-deep: #f0f2f5;
+  --bg-dark: #ffffff;
+  --bg-card: rgba(255, 255, 255, 0.85);
+  --text-primary: #111111;
+  --text-secondary: #4a4a5a;
+  --text-muted: #888899;
 }
 
 * {

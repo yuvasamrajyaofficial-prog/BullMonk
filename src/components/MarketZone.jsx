@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { TickerTape, AdvancedRealTimeChart } from 'react-ts-tradingview-widgets';
 import { FaExpand } from 'react-icons/fa';
 import { watchlists } from '../utils/watchlists';
+import { useTheme } from '../context/ThemeContext';
 
 const MarketZone = ({ onOpenFullChart }) => {
   const [activeTab, setActiveTab] = useState('crypto');
+  const { theme } = useTheme();
 
   const tabs = [
     { id: 'crypto', label: 'Crypto' },
@@ -29,7 +31,7 @@ const MarketZone = ({ onOpenFullChart }) => {
                   padding: '10px 20px',
                   display: 'inline-flex',
                   alignItems: 'center',
-                  background: 'rgba(20, 20, 25, 0.9)',
+                  background: 'var(--bg-card)',
                   border: '1px solid var(--accent-gold)',
                   color: 'var(--accent-gold)',
                   cursor: 'pointer',
@@ -37,7 +39,7 @@ const MarketZone = ({ onOpenFullChart }) => {
                   transition: 'background 0.3s ease'
                 }}
                 onMouseOver={(e) => e.currentTarget.style.background = 'rgba(245, 166, 35, 0.15)'}
-                onMouseOut={(e) => e.currentTarget.style.background = 'rgba(20, 20, 25, 0.9)'}
+                onMouseOut={(e) => e.currentTarget.style.background = 'var(--bg-card)'}
           >
                 <FaExpand style={{ marginRight: '8px' }} /> View Full Terminal
           </button>
@@ -46,7 +48,7 @@ const MarketZone = ({ onOpenFullChart }) => {
         {/* Scrolling Ticker Tape */}
         <div className="mb-2" style={{ borderRadius: '8px', overflow: 'hidden' }}>
           <TickerTape 
-            colorTheme="dark" 
+            colorTheme={theme} 
             displayMode="regular" 
             symbols={[
               { proName: "FOREXCOM:SPXUSD", title: "S&P 500" },
@@ -66,7 +68,7 @@ const MarketZone = ({ onOpenFullChart }) => {
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               style={{
-                background: activeTab === tab.id ? 'rgba(245, 166, 35, 0.2)' : 'rgba(20, 20, 25, 0.8)',
+                background: activeTab === tab.id ? 'rgba(245, 166, 35, 0.2)' : 'var(--bg-card)',
                 color: activeTab === tab.id ? 'var(--accent-gold)' : 'var(--text-secondary)',
                 border: `1px solid ${activeTab === tab.id ? 'var(--accent-gold)' : 'rgba(255, 255, 255, 0.1)'}`,
                 padding: '8px 24px',
@@ -93,7 +95,7 @@ const MarketZone = ({ onOpenFullChart }) => {
               padding: 0, 
               overflow: 'hidden', 
               position: 'relative',
-              background: 'rgba(20, 20, 25, 0.7)',
+              background: 'var(--bg-card)',
               backdropFilter: 'blur(12px)',
               WebkitBackdropFilter: 'blur(12px)',
               border: '1px solid rgba(255, 255, 255, 0.05)',
@@ -102,9 +104,9 @@ const MarketZone = ({ onOpenFullChart }) => {
           >
             <div style={{ flex: 1, height: '100%', width: '100%', paddingTop: '0' }}>
               <AdvancedRealTimeChart 
-                key={activeTab} // Forces iframe reload when tab changes to flush the watchlist properly
+                key={`${activeTab}-${theme}`} // Forces iframe reload when tab or theme changes!
                 symbol="BINANCE:BTCUSDT" 
-                theme="dark" 
+                theme={theme} 
                 interval="5"
                 autosize 
                 allow_symbol_change={true}
@@ -125,7 +127,7 @@ const MarketZone = ({ onOpenFullChart }) => {
               style={{ 
                 cursor: 'pointer', 
                 padding: '2.5rem 1rem',
-                background: 'rgba(20, 20, 25, 0.7)',
+                background: 'var(--bg-card)',
                 backdropFilter: 'blur(12px)',
                 WebkitBackdropFilter: 'blur(12px)',
                 border: '1px solid rgba(255, 255, 255, 0.05)',

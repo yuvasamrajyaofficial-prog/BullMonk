@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { AdvancedRealTimeChart } from 'react-ts-tradingview-widgets';
 import { FaArrowLeft } from 'react-icons/fa';
 import { watchlists } from '../utils/watchlists';
+import { useTheme } from '../context/ThemeContext';
 
 const FullChartPage = ({ onBack }) => {
   const [activeTab, setActiveTab] = useState('crypto');
+  const { theme } = useTheme();
 
   const tabs = [
     { id: 'crypto', label: 'Crypto' },
@@ -17,7 +19,7 @@ const FullChartPage = ({ onBack }) => {
     <div style={{
       width: '100vw',
       height: '100vh',
-      backgroundColor: '#0a0a0f', /* Deep dark identical to TradingView native */
+      backgroundColor: 'var(--bg-dark)', /* Driven strictly by light/dark mode */
       display: 'flex',
       flexDirection: 'column',
       position: 'fixed',
@@ -33,7 +35,7 @@ const FullChartPage = ({ onBack }) => {
         alignItems: 'center',
         padding: '0 20px',
         justifyContent: 'space-between',
-        background: 'rgba(10, 10, 15, 0.95)'
+        background: 'var(--bg-card)'
       }}>
         <button 
           onClick={onBack}
@@ -111,9 +113,9 @@ const FullChartPage = ({ onBack }) => {
       {/* Main Chart Container */}
       <div style={{ flex: 1, width: '100%' }}>
         <AdvancedRealTimeChart 
-          key={activeTab} // Forces iframe reload when tab changes to flush the watchlist properly
+          key={`${activeTab}-${theme}`} // Forces iframe reload when tab or theme changes!
           symbol="BINANCE:BTCUSDT" 
-          theme="dark" 
+          theme={theme} 
           interval="5"
           autosize 
           allow_symbol_change={true}

@@ -107,7 +107,7 @@ const styles = {
     minHeight: '80vh',
     display: 'flex',
     alignItems: 'center',
-    background: 'radial-gradient(circle at center, rgba(20, 15, 5, 0.8) 0%, rgba(10, 10, 15, 1) 100%)',
+    background: 'var(--bg-deep)',
     borderTop: '1px solid rgba(245, 166, 35, 0.1)',
     borderBottom: '1px solid rgba(245, 166, 35, 0.1)',
   },

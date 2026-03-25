@@ -194,7 +194,7 @@ const styles = {
   },
   imageSide: {
     padding: 0,
-    background: '#050508',
+    background: 'var(--bg-deep)',
   },
   imageWrapper: {
     position: 'relative',
@@ -215,11 +215,11 @@ const styles = {
     left: 0,
     width: '100%',
     height: '100%',
-    background: 'linear-gradient(to right, transparent, rgba(10, 10, 15, 0.9) 100%)',
+    background: 'linear-gradient(to right, transparent, var(--bg-card) 100%)',
   },
   textSide: {
     padding: '3rem',
-    background: 'rgba(10, 10, 15, 0.9)',
+    background: 'var(--bg-card)',
     justifyContent: 'space-between',
   },
   chapterBadge: {
