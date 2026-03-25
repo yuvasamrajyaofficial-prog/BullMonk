@@ -28,8 +28,13 @@
   box-sizing: border-box;
 }
 
-html {
+html,
+body {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+  max-width: 100vw;
 }
 
 body {
@@ -37,7 +42,12 @@ body {
   background-color: var(--bg-deep);
   color: var(--text-primary);
   line-height: 1.6;
+}
+
+#root {
   overflow-x: hidden;
+  width: 100%;
+  position: relative;
 }
 
 h1,
