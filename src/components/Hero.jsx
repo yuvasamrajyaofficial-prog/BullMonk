@@ -78,7 +78,7 @@ const Hero = () => {
 const styles = {
   hero: {
     minHeight: '100vh',
-    paddingTop: '80px', // Offset for navbar
+    paddingTop: '120px', // Safe offset for navbar on all devices
     position: 'relative',
     overflow: 'hidden',
   },

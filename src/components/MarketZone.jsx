@@ -1,43 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { TickerTape, AdvancedRealTimeChart } from 'react-ts-tradingview-widgets';
-import { FaExpand, FaCompress } from 'react-icons/fa';
+import { FaExpand } from 'react-icons/fa';
 
-const MarketZone = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
-
-  // Prevent background scrolling when expanded
-  useEffect(() => {
-    if (isExpanded) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto'; // Reset
-    }
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, [isExpanded]);
-
-  const expandedStyle = {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    width: '100vw',
-    height: '100vh',
-    zIndex: 99999,
-    background: 'rgba(5, 5, 8, 0.98)',
-    backdropFilter: 'blur(20px)',
-    padding: '10px',
-    display: 'flex',
-    flexDirection: 'column'
-  };
-
-  const normalStyle = {
-    height: '700px', 
-    padding: 0, 
-    overflow: 'hidden',
-    position: 'relative'
-  };
-
+const MarketZone = ({ onOpenFullChart }) => {
   return (
     <section className="section" id="market">
       <div className="container">
@@ -67,19 +32,29 @@ const MarketZone = () => {
         {/* Single Unified Advanced Chart */}
         <div className="mt-4">
           <div 
-            className={`glass-card glow-gold-box ${isExpanded ? '' : ''}`} 
-            style={isExpanded ? expandedStyle : normalStyle}
+            className="glow-gold-box"
+            style={{ 
+              height: '700px', 
+              padding: 0, 
+              overflow: 'hidden', 
+              position: 'relative',
+              background: 'rgba(20, 20, 25, 0.7)',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+              border: '1px solid rgba(255, 255, 255, 0.05)',
+              borderRadius: '16px'
+            }}
           >
-            {/* Header for expanded view or just a floating button for normal view */}
+            {/* Header for expanding to Full Setup */}
             <div style={{
               position: 'absolute',
-              top: isExpanded ? '20px' : '15px',
-              right: isExpanded ? '20px' : '60px',
+              top: '15px',
+              right: '60px',
               zIndex: 100
             }}>
               <button 
-                onClick={() => setIsExpanded(!isExpanded)}
-                className="btn glass-card"
+                onClick={onOpenFullChart}
+                className="btn"
                 style={{
                   padding: '8px 12px',
                   display: 'flex',
@@ -87,18 +62,18 @@ const MarketZone = () => {
                   background: 'rgba(20, 20, 25, 0.9)',
                   border: '1px solid var(--accent-gold)',
                   color: 'var(--accent-gold)',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  borderRadius: '4px',
+                  transition: 'background 0.3s ease'
                 }}
+                onMouseOver={(e) => e.currentTarget.style.background = 'rgba(245, 166, 35, 0.15)'}
+                onMouseOut={(e) => e.currentTarget.style.background = 'rgba(20, 20, 25, 0.9)'}
               >
-                {isExpanded ? (
-                  <><FaCompress style={{ marginRight: '8px' }} /> Default View</>
-                ) : (
-                  <><FaExpand style={{ marginRight: '8px' }} /> Full Chart</>
-                )}
+                <FaExpand style={{ marginRight: '8px' }} /> View Full Terminal
               </button>
             </div>
 
-            <div style={{ flex: 1, height: '100%', width: '100%', paddingTop: isExpanded ? '60px' : '0' }}>
+            <div style={{ flex: 1, height: '100%', width: '100%', paddingTop: '0' }}>
               <AdvancedRealTimeChart 
                 symbol="BINANCE:BTCUSD" 
                 theme="dark" 

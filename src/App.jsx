@@ -12,9 +12,15 @@ import Quiz from './components/Quiz';
 import CallToAction from './components/CallToAction';
 import Footer from './components/Footer';
 import MarketZone from './components/MarketZone';
+import FullChartPage from './components/FullChartPage';
 import './index.css';
 
 function App() {
+  const [view, setView] = React.useState('landing');
+
+  if (view === 'chart') {
+    return <FullChartPage onBack={() => setView('landing')} />;
+  }
   return (
     <>
       <ParticleBackground />
@@ -26,7 +32,7 @@ function App() {
         <Problem />
         <Solution />
         <TokenPower />
-        <MarketZone />
+        <MarketZone onOpenFullChart={() => setView('chart')} />
         <TheOrder />
         <NeetiBook />
         <Roadmap />
