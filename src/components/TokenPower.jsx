@@ -6,19 +6,12 @@ gsap.registerPlugin(ScrollTrigger);
 
 const TokenPower = () => {
   const sectionRef = useRef(null);
-  const itemsRef = useRef([]);
-  itemsRef.current = [];
-
-  const addToRefs = (el) => {
-    if (el && !itemsRef.current.includes(el)) {
-      itemsRef.current.push(el);
-    }
-  };
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    const ctx = gsap.context((self) => {
+      const items = self.selector('.glass-card');
       gsap.fromTo(
-        itemsRef.current,
+        items,
         { x: -50, opacity: 0 },
         {
           scrollTrigger: {
@@ -48,7 +41,7 @@ const TokenPower = () => {
 
         <div className="grid grid-3 mt-4">
           {/* Feature 1 */}
-          <div ref={addToRefs} className="glass-card flex-column" style={styles.card}>
+          <div className="glass-card flex-column" style={styles.card}>
             <div style={styles.iconWrapper}>
               <span style={styles.icon}>0%</span>
             </div>
@@ -59,7 +52,7 @@ const TokenPower = () => {
           </div>
 
           {/* Feature 2 */}
-          <div ref={addToRefs} className="glass-card flex-column" style={styles.card}>
+          <div className="glass-card flex-column" style={styles.card}>
             <div style={styles.iconWrapper}>
               <span style={styles.icon}>🤝</span>
             </div>
@@ -70,7 +63,7 @@ const TokenPower = () => {
           </div>
 
           {/* Feature 3 */}
-          <div ref={addToRefs} className="glass-card flex-column" style={styles.card}>
+          <div className="glass-card flex-column" style={styles.card}>
             <div style={styles.iconWrapper}>
               <span style={styles.icon}>💎</span>
             </div>

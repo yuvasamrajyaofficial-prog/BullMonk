@@ -7,17 +7,9 @@ gsap.registerPlugin(ScrollTrigger);
 const Solution = () => {
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
-  const cardsRef = useRef([]);
-  cardsRef.current = [];
-
-  const addToRefs = (el) => {
-    if (el && !cardsRef.current.includes(el)) {
-      cardsRef.current.push(el);
-    }
-  };
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    const ctx = gsap.context((self) => {
       // Title reveal
       gsap.fromTo(
         titleRef.current,
@@ -37,8 +29,9 @@ const Solution = () => {
       );
 
       // Cards stagger
+      const cards = self.selector('.glass-card');
       gsap.fromTo(
-        cardsRef.current,
+        cards,
         { y: 50, opacity: 0, scale: 0.95 },
         {
           scrollTrigger: {
@@ -75,7 +68,7 @@ const Solution = () => {
 
         <div className="grid grid-3 mt-4">
           {/* Card 1 */}
-          <div ref={addToRefs} className="glass-card flex-column" style={styles.card}>
+          <div className="glass-card flex-column" style={styles.card}>
             <div style={styles.iconWrapper}>
               <span style={styles.icon}>🧘</span>
             </div>
@@ -86,7 +79,7 @@ const Solution = () => {
           </div>
 
           {/* Card 2 */}
-          <div ref={addToRefs} className="glass-card flex-column" style={styles.card}>
+          <div className="glass-card flex-column" style={styles.card}>
             <div style={styles.iconWrapper}>
               <span style={styles.icon}>💎</span>
             </div>
@@ -97,7 +90,7 @@ const Solution = () => {
           </div>
 
           {/* Card 3 */}
-          <div ref={addToRefs} className="glass-card flex-column" style={styles.card}>
+          <div className="glass-card flex-column" style={styles.card}>
             <div style={styles.iconWrapper}>
               <span style={styles.icon}>👁️</span>
             </div>

@@ -11,6 +11,7 @@ import Roadmap from './components/Roadmap';
 import Quiz from './components/Quiz';
 import CallToAction from './components/CallToAction';
 import Footer from './components/Footer';
+import MarketZone from './components/MarketZone';
 import './index.css';
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Problem />
         <Solution />
         <TokenPower />
+        <MarketZone />
         <TheOrder />
         <NeetiBook />
         <Roadmap />

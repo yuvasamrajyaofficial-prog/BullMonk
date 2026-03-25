@@ -9,16 +9,9 @@ gsap.registerPlugin(ScrollTrigger);
 const TheOrder = () => {
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
-  const statsRef = useRef([]);
-
-  const addToRefs = (el) => {
-    if (el && !statsRef.current.includes(el)) {
-      statsRef.current.push(el);
-    }
-  };
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    const ctx = gsap.context((self) => {
       // Title reveal
       gsap.fromTo(
         titleRef.current,
@@ -38,8 +31,9 @@ const TheOrder = () => {
       );
 
       // Stats stagger
+      const stats = self.selector('.stat-box');
       gsap.fromTo(
-        statsRef.current,
+        stats,
         { y: 30, opacity: 0 },
         {
           scrollTrigger: {
@@ -86,19 +80,19 @@ const TheOrder = () => {
 
         <div className="grid grid-3">
           {/* Stat 1 */}
-          <div ref={addToRefs} style={styles.statBox}>
+          <div className="stat-box" style={styles.statBox}>
             <div className="text-gradient-gold mb-1" style={styles.statNumber}>10k+</div>
             <div className="text-secondary text-uppercase" style={{ letterSpacing: '2px' }}>Followers</div>
           </div>
 
           {/* Stat 2 */}
-          <div ref={addToRefs} style={styles.statBox}>
+          <div className="stat-box" style={styles.statBox}>
             <div className="text-gradient-gold mb-1" style={styles.statNumber}>$0</div>
             <div className="text-secondary text-uppercase" style={{ letterSpacing: '2px' }}>VC Funding</div>
           </div>
 
           {/* Stat 3 */}
-          <div ref={addToRefs} style={styles.statBox}>
+          <div className="stat-box" style={styles.statBox}>
             <div className="text-gradient-gold mb-1" style={styles.statNumber}>100%</div>
             <div className="text-secondary text-uppercase" style={{ letterSpacing: '2px' }}>Conviction</div>
           </div>

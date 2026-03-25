@@ -42,11 +42,11 @@ const Hero = () => {
             We Remain <br />
             <span className="text-gradient-gold">Still.</span>
           </h1>
-          <p className="mb-4" style={{ fontSize: '1.2rem', color: 'var(--text-secondary)', maxWidth: '80%' }}>
+          <p className="mb-4 hero-subtitle">
             BullMonk has awakened. The cycle belongs to those with discipline.
           </p>
           
-          <div className="flex-center hero-buttons" style={{ justifyContent: 'flex-start', gap: '1.5rem' }}>
+          <div className="flex-center flex-center-mobile hero-buttons" style={{ gap: '1.5rem' }}>
             <button className="btn btn-primary animate-pulse">
               Join The Order
             </button>

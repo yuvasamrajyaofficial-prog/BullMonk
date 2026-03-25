@@ -453,4 +453,26 @@ h6 {
   .hero-visual {
     height: 400px !important;
   }
+  .hero-buttons {
+    justify-content: center !important;
+    gap: 0 !important;
+  }
+  .hero-subtitle {
+    max-width: 100% !important;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+}
+
+/* Desktop Hero overrides */
+@media (min-width: 769px) {
+  .hero-buttons {
+    justify-content: flex-start !important;
+  }
+  .hero-subtitle {
+    max-width: 80%;
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+  }
 }

@@ -7,15 +7,9 @@ gsap.registerPlugin(ScrollTrigger);
 const Roadmap = () => {
   const sectionRef = useRef(null);
   const lineRef = useRef(null);
-  const phasesRef = useRef([]);
-  const addToRefs = (el) => {
-    if (el && !phasesRef.current.includes(el)) {
-      phasesRef.current.push(el);
-    }
-  };
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    const ctx = gsap.context((self) => {
       // Line animation
       gsap.fromTo(
         lineRef.current,
@@ -33,7 +27,8 @@ const Roadmap = () => {
       );
 
       // Phase reveals
-      phasesRef.current.forEach((phase, index) => {
+      const phases = self.selector('.roadmap-phase');
+      phases.forEach((phase, index) => {
         gsap.fromTo(
           phase,
           { x: index % 2 === 0 ? 50 : -50, opacity: 0 },
@@ -69,7 +64,7 @@ const Roadmap = () => {
           <div ref={lineRef} className="roadmap-line-fill" style={styles.lineFill}></div>
 
           {/* Phase 1 */}
-          <div ref={addToRefs} className="glass-card roadmap-phase" style={{...styles.phase, ...styles.leftPhase}}>
+          <div className="glass-card roadmap-phase" style={{...styles.phase, ...styles.leftPhase}}>
             <div className="roadmap-node-left" style={styles.phaseNode}>1</div>
             <h3 className="heading-md text-gold mb-1">Awakening</h3>
             <p className="text-secondary">
@@ -78,7 +73,7 @@ const Roadmap = () => {
           </div>
 
           {/* Phase 2 */}
-          <div ref={addToRefs} className="glass-card roadmap-phase" style={{...styles.phase, ...styles.rightPhase}}>
+          <div className="glass-card roadmap-phase" style={{...styles.phase, ...styles.rightPhase}}>
             <div className="roadmap-node-right" style={styles.phaseNode}>2</div>
             <h3 className="heading-md text-gold mb-1">Expansion</h3>
             <p className="text-secondary">
@@ -87,7 +82,7 @@ const Roadmap = () => {
           </div>
 
           {/* Phase 3 */}
-          <div ref={addToRefs} className="glass-card roadmap-phase" style={{...styles.phase, ...styles.leftPhase}}>
+          <div className="glass-card roadmap-phase" style={{...styles.phase, ...styles.leftPhase}}>
             <div className="roadmap-node-left" style={styles.phaseNode}>3</div>
             <h3 className="heading-md text-gold mb-1">Domination</h3>
             <p className="text-secondary">
@@ -96,7 +91,7 @@ const Roadmap = () => {
           </div>
 
           {/* Phase 4 */}
-          <div ref={addToRefs} className="glass-card roadmap-phase" style={{...styles.phase, ...styles.rightPhase}}>
+          <div className="glass-card roadmap-phase" style={{...styles.phase, ...styles.rightPhase}}>
             <div className="roadmap-node-right" style={styles.phaseNode}>4</div>
             <h3 className="heading-md mb-1 glow-text">Global Order</h3>
             <p className="text-secondary">
