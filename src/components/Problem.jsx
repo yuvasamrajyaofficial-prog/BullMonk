@@ -69,7 +69,7 @@ const Problem = () => {
 const styles = {
   problem: {
     minHeight: '80vh',
-    background: 'linear-gradient(to bottom, transparent, rgba(20, 10, 10, 0.4), transparent)',
+    background: 'linear-gradient(to bottom, transparent, var(--bg-card), transparent)',
   },
   line: {
     fontFamily: 'var(--font-heading)',

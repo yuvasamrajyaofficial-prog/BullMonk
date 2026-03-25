@@ -2,9 +2,9 @@
 
 :root {
   /* Color Palette - DARK (Default) */
-  --bg-deep: #050508;
-  --bg-dark: #0a0a0f;
-  --bg-card: rgba(20, 20, 25, 0.7);
+  --bg-deep: #040406;
+  --bg-dark: #0a0a10;
+  --bg-card: rgba(18, 18, 24, 0.75);
   --accent-gold: #f5a623;
   --accent-gold-glow: rgba(245, 166, 35, 0.5);
   --accent-red: #e74c3c;
@@ -28,15 +28,15 @@
 }
 
 [data-theme="light"] {
-  --bg-deep: #f0f2f5;
+  --bg-deep: #f5f6fa;
   --bg-dark: #ffffff;
-  --bg-card: rgba(255, 255, 255, 0.85);
-  --text-primary: #111111;
-  --text-secondary: #4a4a5a;
-  --text-muted: #888899;
+  --bg-card: rgba(255, 255, 255, 0.92);
+  --text-primary: #1a1a2e;
+  --text-secondary: #555570;
+  --text-muted: #9090a0;
   --border-subtle: rgba(0, 0, 0, 0.08);
-  --shadow-card: rgba(0, 0, 0, 0.1);
-  --gradient-start: #333;
+  --shadow-card: rgba(0, 0, 0, 0.08);
+  --gradient-start: #2a2a3e;
 }
 
 * {

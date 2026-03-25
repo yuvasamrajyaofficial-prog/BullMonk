@@ -180,7 +180,7 @@ const styles = {
     minHeight: '80vh',
     display: 'flex',
     alignItems: 'center',
-    background: 'radial-gradient(circle at top, rgba(20, 15, 5, 0.4) 0%, transparent 70%)',
+    background: 'radial-gradient(circle at top, var(--bg-card) 0%, transparent 70%)',
   },
   bookContainer: {
     padding: '0', 

@@ -155,7 +155,7 @@ const styles = {
     width: '40px',
     height: '40px',
     borderRadius: '50%',
-    background: '#0a0a0f',
+    background: 'var(--bg-dark)',
     border: '2px solid var(--accent-gold)',
     display: 'flex',
     justifyContent: 'center',
