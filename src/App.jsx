@@ -13,6 +13,7 @@ import CallToAction from './components/CallToAction';
 import Footer from './components/Footer';
 import MarketZone from './components/MarketZone';
 import FullChartPage from './components/FullChartPage';
+import PhilosophyPage from './components/PhilosophyPage';
 import BottomNav from './components/BottomNav';
 import './index.css';
 
@@ -23,10 +24,14 @@ function App() {
     return <FullChartPage onBack={() => setView('landing')} />;
   }
 
+  if (view === 'philosophy') {
+    return <PhilosophyPage onBack={() => setView('landing')} />;
+  }
+
   return (
     <>
       <ParticleBackground />
-      <Navbar />
+      <Navbar setView={setView} />
       
       {/* Main Content Wrapper - ensures it sits above particles */}
       <div style={{ position: 'relative', zIndex: 1 }}>

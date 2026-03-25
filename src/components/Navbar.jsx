@@ -3,14 +3,14 @@ import { FaTelegramPlane, FaSun, FaMoon } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6'; // Twitter X icon
 import { useTheme } from '../context/ThemeContext';
 
-const Navbar = () => {
+const Navbar = ({ setView }) => {
   const { theme, toggleTheme } = useTheme();
 
   return (
     <nav className="navbar" style={styles.nav}>
       <div className="container flex-between" style={styles.container}>
         {/* Logo */}
-        <div className="logo" style={styles.logo}>
+        <div className="logo" style={styles.logo} onClick={() => setView && setView('landing')}>
           <span className="text-gradient-gold" style={{ fontSize: '1.5rem', fontWeight: 800, fontFamily: 'var(--font-heading)' }}>
             BullMonk
           </span>
@@ -18,7 +18,7 @@ const Navbar = () => {
 
         {/* Links (Desktop) */}
         <div className="nav-links hide-mobile" style={styles.links}>
-          <a href="#philosophy" style={styles.link}>Philosophy</a>
+          <a href="#" onClick={(e) => { e.preventDefault(); setView && setView('philosophy'); }} style={styles.link}>Philosophy</a>
           <a href="#token" style={styles.link}>Token</a>
           <a href="#order" style={styles.link}>The Order</a>
         </div>
