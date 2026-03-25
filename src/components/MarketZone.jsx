@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TickerTape, AdvancedRealTimeChart } from 'react-ts-tradingview-widgets';
 import { FaExpand } from 'react-icons/fa';
+import { watchlists } from '../utils/watchlists';
 
 const MarketZone = ({ onOpenFullChart }) => {
+  const [activeTab, setActiveTab] = useState('crypto');
+
+  const tabs = [
+    { id: 'crypto', label: 'Crypto' },
+    { id: 'india', label: 'India' },
+    { id: 'global', label: 'Global' },
+    { id: 'forex', label: 'Forex' }
+  ];
+
   return (
     <section className="section" id="market">
       <div className="container">
@@ -49,8 +59,33 @@ const MarketZone = ({ onOpenFullChart }) => {
           />
         </div>
 
+        {/* Watchlist Tabs UI */}
+        <div className="hide-mobile" style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginBottom: '15px' }}>
+          {tabs.map(tab => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              style={{
+                background: activeTab === tab.id ? 'rgba(245, 166, 35, 0.2)' : 'rgba(20, 20, 25, 0.8)',
+                color: activeTab === tab.id ? 'var(--accent-gold)' : 'var(--text-secondary)',
+                border: `1px solid ${activeTab === tab.id ? 'var(--accent-gold)' : 'rgba(255, 255, 255, 0.1)'}`,
+                padding: '8px 24px',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                fontWeight: activeTab === tab.id ? 'bold' : 'normal',
+                letterSpacing: '1px',
+                textTransform: 'uppercase',
+                fontSize: '0.85rem'
+              }}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
         {/* Desktop Interface */}
-        <div className="mt-4 hide-mobile">
+        <div className="hide-mobile">
           <div 
             className="glow-gold-box"
             style={{ 
@@ -67,7 +102,8 @@ const MarketZone = ({ onOpenFullChart }) => {
           >
             <div style={{ flex: 1, height: '100%', width: '100%', paddingTop: '0' }}>
               <AdvancedRealTimeChart 
-                symbol="BINANCE:BTCUSD" 
+                key={activeTab} // Forces iframe reload when tab changes to flush the watchlist properly
+                symbol="BINANCE:BTCUSDT" 
                 theme="dark" 
                 interval="5"
                 autosize 
@@ -75,54 +111,7 @@ const MarketZone = ({ onOpenFullChart }) => {
                 hide_side_toolbar={false}
                 details={true}
                 calendar={false}
-                watchlist={[
-                  // CRYPTOCURRENCIES
-                  "BINANCE:BTCUSDT",
-                  "BINANCE:ETHUSDT",
-                  "BINANCE:SOLUSDT",
-                  "BINANCE:BNBUSDT",
-                  "BINANCE:XRPUSDT",
-                  "BINANCE:DOGEUSDT",
-                  "BINANCE:ADAUSDT",
-                  "BINANCE:AVAXUSDT",
-                  "BINANCE:DOTUSDT",
-                  "BINANCE:LINKUSDT",
-                  "BINANCE:MATICUSDT",
-                  
-                  // FOREX & METALS
-                  "OANDA:EURUSD",
-                  "OANDA:GBPUSD",
-                  "OANDA:USDJPY",
-                  "OANDA:AUDUSD",
-                  "OANDA:USDCAD",
-                  "OANDA:USDCHF",
-                  "OANDA:NZDUSD",
-                  "OANDA:EURGBP",
-                  "OANDA:EURJPY",
-                  "OANDA:GBPJPY",
-                  "OANDA:XAUUSD", // Gold
-                  "OANDA:XAGUSD", // Silver
-                  "OANDA:WTICOUSD", // WTI Crude Oil
-                  
-                  // GLOBAL INDICES
-                  "FOREXCOM:SPXUSD", // S&P 500
-                  "FOREXCOM:NSXUSD", // Nasdaq 100
-                  "FOREXCOM:DJI",    // Dow Jones 30
-                  "INDEX:UKX",       // FTSE 100
-                  "INDEX:DEU40",     // DAX
-                  "INDEX:NKY",       // Nikkei 225
-                  "INDEX:CAC40",     // CAC 40
-
-                  // USA BIG TECH STOCKS
-                  "NASDAQ:AAPL",
-                  "NASDAQ:MSFT",
-                  "NASDAQ:NVDA",
-                  "NASDAQ:AMZN",
-                  "NASDAQ:GOOGL",
-                  "NASDAQ:META",
-                  "NASDAQ:TSLA",
-                  "NASDAQ:NFLX"
-                ]}
+                watchlist={watchlists[activeTab]}
               />
             </div>
           </div>
