@@ -163,7 +163,7 @@ const styles = {
     fontWeight: 'bold',
     fontFamily: 'var(--font-heading)',
     color: 'var(--accent-gold)',
-    boxShadow: '0 0 15px var(--accent-gold-glow)',
+    boxShadow: '0 0 15px var(--accent-gold-glow), 0 2px 8px var(--shadow-card)',
     zIndex: 4,
   }
 };

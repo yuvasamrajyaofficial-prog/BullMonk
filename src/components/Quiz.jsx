@@ -67,7 +67,7 @@ const Quiz = () => {
               <div className="text-secondary mb-2" style={{ textTransform: 'uppercase', letterSpacing: '2px', fontSize: '0.9rem' }}>
                 Question {step + 1} of {questions.length}
               </div>
-              <h3 className="heading-md mb-4" style={{ color: '#fff' }}>
+              <h3 className="heading-md mb-4" style={{ color: 'var(--text-primary)' }}>
                 {questions[step].q}
               </h3>
               
@@ -118,11 +118,12 @@ const styles = {
     textAlign: 'left',
     justifyContent: 'flex-start',
     padding: '1.5rem 2rem',
-    border: '1px solid rgba(255,255,255,0.1)',
-    color: '#fff',
+    border: '1px solid var(--border-subtle)',
+    color: 'var(--text-primary)',
     textTransform: 'none',
     fontSize: '1.1rem',
     fontFamily: 'var(--font-body)',
+    background: 'var(--bg-card)',
   }
 };
 
