@@ -13,6 +13,7 @@ import CallToAction from './components/CallToAction';
 import Footer from './components/Footer';
 import MarketZone from './components/MarketZone';
 import FullChartPage from './components/FullChartPage';
+import BottomNav from './components/BottomNav';
 import './index.css';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
   if (view === 'chart') {
     return <FullChartPage onBack={() => setView('landing')} />;
   }
+
   return (
     <>
       <ParticleBackground />
@@ -40,6 +42,8 @@ function App() {
         <CallToAction />
         <Footer />
       </div>
+
+      <BottomNav view={view} setView={setView} />
     </>
   );
 }

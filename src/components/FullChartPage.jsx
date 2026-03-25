@@ -30,6 +30,7 @@ const FullChartPage = ({ onBack }) => {
         <AdvancedRealTimeChart 
           symbol="BINANCE:BTCUSD" 
           theme="dark" 
+          interval="5"
           autosize 
           allow_symbol_change={true}
           hide_side_toolbar={false}
