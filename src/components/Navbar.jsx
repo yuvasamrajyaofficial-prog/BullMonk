@@ -170,7 +170,7 @@ const styles = {
     zIndex: 100,
     background: 'var(--bg-card)',
     backdropFilter: 'blur(10px)',
-    borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+    borderBottom: '1px solid var(--border-subtle)',
     padding: '1rem 0',
   },
   container: {
@@ -201,7 +201,7 @@ const styles = {
     letterSpacing: '2px',
     fontFamily: 'var(--font-heading)',
     padding: '8px 0',
-    borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+    borderBottom: '1px solid var(--border-subtle)',
     transition: 'color 0.3s ease',
   },
   actions: {

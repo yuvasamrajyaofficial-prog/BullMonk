@@ -20,6 +20,11 @@
   --text-primary: #ffffff;
   --text-secondary: #a0a0b0;
   --text-muted: #5a5a6a;
+
+  /* Borders & Shadows */
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --shadow-card: rgba(0, 0, 0, 0.5);
+  --gradient-start: #fff;
 }
 
 [data-theme="light"] {
@@ -29,6 +34,9 @@
   --text-primary: #111111;
   --text-secondary: #4a4a5a;
   --text-muted: #888899;
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --shadow-card: rgba(0, 0, 0, 0.1);
+  --gradient-start: #333;
 }
 
 * {
@@ -92,21 +100,33 @@ h6 {
 }
 
 .text-gradient-gold {
-  background: linear-gradient(135deg, #fff 0%, var(--accent-gold) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--gradient-start) 0%,
+    var(--accent-gold) 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .text-gradient-green {
-  background: linear-gradient(135deg, #fff 0%, var(--accent-green) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--gradient-start) 0%,
+    var(--accent-green) 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .text-gradient-red {
-  background: linear-gradient(135deg, #fff 0%, var(--accent-red) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--gradient-start) 0%,
+    var(--accent-red) 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -139,7 +159,7 @@ h6 {
   background: var(--bg-card);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
   border-radius: 16px;
   padding: 2rem;
   transition: all 0.3s ease;
@@ -147,7 +167,7 @@ h6 {
 
 .glass-card:hover {
   border-color: rgba(245, 166, 35, 0.3);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 30px var(--shadow-card);
   transform: translateY(-5px);
 }
 
@@ -237,7 +257,7 @@ h6 {
 }
 
 .glow-text {
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  text-shadow: 0 0 10px var(--shadow-card);
 }
 
 .glow-text-gold {
@@ -438,7 +458,7 @@ h6 {
     left: 0;
     width: 100%;
     height: 65px;
-    background: rgba(10, 10, 15, 0.98);
+    background: var(--bg-card);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border-top: 1px solid rgba(245, 166, 35, 0.2);
@@ -496,7 +516,7 @@ h6 {
     background: linear-gradient(
       to bottom,
       transparent,
-      rgba(10, 10, 15, 1) 100%
+      var(--bg-card) 100%
     ) !important;
   }
   .neeti-text {

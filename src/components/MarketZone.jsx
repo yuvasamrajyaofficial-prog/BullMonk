@@ -70,7 +70,7 @@ const MarketZone = ({ onOpenFullChart }) => {
               style={{
                 background: activeTab === tab.id ? 'rgba(245, 166, 35, 0.2)' : 'var(--bg-card)',
                 color: activeTab === tab.id ? 'var(--accent-gold)' : 'var(--text-secondary)',
-                border: `1px solid ${activeTab === tab.id ? 'var(--accent-gold)' : 'rgba(255, 255, 255, 0.1)'}`,
+                border: `1px solid ${activeTab === tab.id ? 'var(--accent-gold)' : 'var(--border-subtle)'}`,
                 padding: '8px 24px',
                 borderRadius: '8px',
                 cursor: 'pointer',
@@ -98,7 +98,7 @@ const MarketZone = ({ onOpenFullChart }) => {
               background: 'var(--bg-card)',
               backdropFilter: 'blur(12px)',
               WebkitBackdropFilter: 'blur(12px)',
-              border: '1px solid rgba(255, 255, 255, 0.05)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '16px'
             }}
           >
@@ -130,7 +130,7 @@ const MarketZone = ({ onOpenFullChart }) => {
                 background: 'var(--bg-card)',
                 backdropFilter: 'blur(12px)',
                 WebkitBackdropFilter: 'blur(12px)',
-                border: '1px solid rgba(255, 255, 255, 0.05)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '16px',
                 transition: 'all 0.3s ease'
               }}

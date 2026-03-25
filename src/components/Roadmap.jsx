@@ -121,7 +121,7 @@ const styles = {
     top: 0,
     bottom: 0,
     width: '2px',
-    background: 'rgba(255, 255, 255, 0.1)',
+    background: 'var(--border-subtle)',
     transform: 'translateX(-50%)',
     zIndex: 1,
   },

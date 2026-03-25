@@ -235,7 +235,7 @@ const styles = {
     fontFamily: 'var(--font-heading)',
   },
   controls: {
-    borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+    borderTop: '1px solid var(--border-subtle)',
     paddingTop: '1.5rem',
   },
   pageBtn: {

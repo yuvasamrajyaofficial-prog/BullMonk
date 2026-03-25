@@ -118,8 +118,8 @@ const styles = {
   socialBtn: {
     padding: '1rem 2rem',
     textTransform: 'none',
-    border: '1px solid rgba(255, 255, 255, 0.1)',
-    color: '#fff',
+    border: '1px solid var(--border-subtle)',
+    color: 'var(--text-primary)',
     textDecoration: 'none',
     letterSpacing: '0px',
   },

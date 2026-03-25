@@ -35,8 +35,8 @@ const Footer = () => {
 
 const styles = {
   footer: {
-    background: '#050508',
-    borderTop: '1px solid rgba(255, 255, 255, 0.05)',
+    background: 'var(--bg-deep)',
+    borderTop: '1px solid var(--border-subtle)',
     position: 'relative',
     zIndex: 10, // Above particles
   },
