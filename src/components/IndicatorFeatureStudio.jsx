@@ -47,8 +47,25 @@ const IndicatorFeatureStudio = () => {
   // Delta Target Strike Selection State
   const [targetDelta, setTargetDelta] = useState(0.50);
 
-  // Check backend / edge API status
+  const [customTunnelUrl, setCustomTunnelUrl] = useState(() => localStorage.getItem('bullmonk_tunnel_url') || '');
+  const [showTunnelModal, setShowTunnelModal] = useState(false);
+  const [tunnelLatency, setTunnelLatency] = useState(null);
+
+  // Check backend / edge API status or custom tunnel
   useEffect(() => {
+    const checkTarget = customTunnelUrl.trim().replace(/\/+$/, '');
+    if (checkTarget) {
+      const startTime = performance.now();
+      fetch(`${checkTarget}/api/health`)
+        .then(res => res.json())
+        .then(data => {
+          setTunnelLatency(Math.round(performance.now() - startTime));
+          setBackendStatus('tunnel-online');
+        })
+        .catch(() => setBackendStatus('tunnel-offline'));
+      return;
+    }
+
     fetch('/api/health')
       .then(res => res.json())
       .then(data => {
@@ -61,7 +78,13 @@ const IndicatorFeatureStudio = () => {
           .then(() => setBackendStatus('python-online'))
           .catch(() => setBackendStatus('client-engine'));
       });
-  }, []);
+  }, [customTunnelUrl]);
+
+  const handleSaveTunnel = (url) => {
+    const clean = url.trim().replace(/\/+$/, '');
+    setCustomTunnelUrl(clean);
+    localStorage.setItem('bullmonk_tunnel_url', clean);
+  };
 
   // Compute Technical Indicators
   const computedData = useMemo(() => {
@@ -132,18 +155,105 @@ const IndicatorFeatureStudio = () => {
             </p>
           </div>
 
-          {/* Engine Connectivity Status */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(15, 23, 42, 0.8)', padding: '10px 16px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.08)' }}>
-            <FaCloud color={backendStatus.includes('online') ? '#10b981' : '#38bdf8'} />
-            <div style={{ textAlign: 'left' }}>
-              <div style={{ fontSize: '11px', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Deployment Engine</div>
-              <div style={{ fontSize: '13px', fontWeight: '700', color: '#f8fafc' }}>
-                {backendStatus === 'edge-online' ? 'Cloudflare Edge API Active' :
-                 backendStatus === 'python-online' ? 'Python FastAPI Engine (Port 8000)' :
-                 'Cloudflare Embedded Client Engine'}
+          {/* Engine Connectivity Status & Tunnel Config */}
+          <div style={{ position: 'relative' }}>
+            <div 
+              onClick={() => setShowTunnelModal(!showTunnelModal)}
+              style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(15, 23, 42, 0.8)', padding: '10px 16px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.08)', cursor: 'pointer', transition: 'border-color 0.2s' }}
+              title="Click to configure Cloudflare Tunnel or local Python backend"
+            >
+              <FaCloud color={backendStatus.includes('online') ? '#10b981' : '#38bdf8'} />
+              <div style={{ textAlign: 'left' }}>
+                <div style={{ fontSize: '11px', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                  {backendStatus === 'tunnel-online' ? 'Cloudflare Tunnel Active' : 'Deployment Engine'}
+                </div>
+                <div style={{ fontSize: '13px', fontWeight: '700', color: '#f8fafc' }}>
+                  {backendStatus === 'tunnel-online' ? `Tunnel Connected (${tunnelLatency}ms)` :
+                   backendStatus === 'edge-online' ? 'Cloudflare Edge API Active' :
+                   backendStatus === 'python-online' ? 'Python Engine (Port 8000)' :
+                   'Cloudflare Embedded Engine'}
+                </div>
               </div>
+              <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: backendStatus.includes('online') ? '#10b981' : '#38bdf8', boxShadow: `0 0 8px ${backendStatus.includes('online') ? '#10b981' : '#38bdf8'}` }} />
+              <span style={{ fontSize: '10px', background: 'rgba(255,255,255,0.08)', padding: '2px 6px', borderRadius: '4px', color: '#94a3b8' }}>Tunnel Setup</span>
             </div>
-            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', boxShadow: '0 0 8px #10b981' }} />
+
+            {/* Cloudflare Tunnel Setup Dropdown / Modal */}
+            {showTunnelModal && (
+              <div style={{
+                position: 'absolute',
+                top: 'calc(100% + 8px)',
+                right: 0,
+                width: '380px',
+                background: '#0f172a',
+                border: '1px solid rgba(217, 119, 6, 0.3)',
+                boxShadow: '0 20px 40px rgba(0,0,0,0.6)',
+                borderRadius: '12px',
+                padding: '20px',
+                zIndex: 100,
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                  <div style={{ fontWeight: '700', fontSize: '15px', color: '#f8fafc', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <FaServer color="#fbbf24" size={14} /> Cloudflare Tunnel Configuration
+                  </div>
+                  <button 
+                    onClick={() => setShowTunnelModal(false)}
+                    style={{ background: 'transparent', border: 'none', color: '#94a3b8', cursor: 'pointer', fontSize: '16px' }}
+                  >
+                    ✕
+                  </button>
+                </div>
+
+                <p style={{ fontSize: '12px', color: '#94a3b8', lineHeight: '1.4', margin: '0 0 14px 0' }}>
+                  Connect your deployed Cloudflare website to your local Python algorithmic backend (port 8000) securely through a free Cloudflare Tunnel.
+                </p>
+
+                <div style={{ marginBottom: '14px' }}>
+                  <label style={{ display: 'block', fontSize: '11px', fontWeight: '600', color: '#cbd5e1', marginBottom: '6px' }}>
+                    Cloudflare Tunnel URL or Backend URL
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="https://xyz.trycloudflare.com or http://localhost:8000"
+                    value={customTunnelUrl}
+                    onChange={(e) => setCustomTunnelUrl(e.target.value)}
+                    style={{ width: '100%', padding: '9px 12px', background: 'rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '6px', color: '#f8fafc', fontSize: '12px' }}
+                  />
+                </div>
+
+                <div style={{ display: 'flex', gap: '8px', marginBottom: '16px' }}>
+                  <button
+                    onClick={() => handleSaveTunnel(customTunnelUrl)}
+                    style={{ flex: 1, padding: '8px', background: '#fbbf24', border: 'none', borderRadius: '6px', color: '#000', fontWeight: '700', fontSize: '12px', cursor: 'pointer' }}
+                  >
+                    Save & Connect
+                  </button>
+                  <button
+                    onClick={() => {
+                      setCustomTunnelUrl('');
+                      localStorage.removeItem('bullmonk_tunnel_url');
+                      setBackendStatus('edge-online');
+                    }}
+                    style={{ padding: '8px 12px', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '6px', color: '#cbd5e1', fontSize: '12px', cursor: 'pointer' }}
+                  >
+                    Reset
+                  </button>
+                </div>
+
+                {/* Quick Start Guide */}
+                <div style={{ background: 'rgba(0,0,0,0.4)', padding: '12px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.06)' }}>
+                  <div style={{ fontSize: '11px', fontWeight: '700', color: '#fbbf24', marginBottom: '6px' }}>
+                    Quick Start Command (Terminal):
+                  </div>
+                  <pre style={{ margin: 0, padding: '8px', background: 'rgba(0,0,0,0.5)', borderRadius: '4px', fontSize: '11px', color: '#38bdf8', overflowX: 'auto', whiteSpace: 'pre-wrap' }}>
+                    cloudflared tunnel --url http://localhost:8000
+                  </pre>
+                  <div style={{ fontSize: '10px', color: '#64748b', marginTop: '6px' }}>
+                    Copy the generated <code>trycloudflare.com</code> URL and paste it above.
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
