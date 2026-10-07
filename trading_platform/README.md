@@ -239,6 +239,77 @@ python -m scripts.run_backtest --strategy bollinger --timeframe 15m
 
 ---
 
+## Quantitative Indicator & Feature Engine
+
+A modular, stateless, deterministic quantitative feature engineering subsystem designed for cross-asset, multi-timeframe research and execution.
+
+### Architectural Guarantees
+1. **Stateless & Deterministic**: Zero global mutable state; identical input series always yields bitwise-identical feature matrices.
+2. **Strict Zero Look-Ahead Bias**:
+   - Indicator values at timestamp $T$ only access data known at or prior to $T$.
+   - **Ichimoku Cloud**: Causal alignment shifts forward projections by `displacement` ($+26$ bars), ensuring price at $T$ interacts with the cloud projected from $T - 26$.
+   - **Session Levels**: Cumulative running levels (e.g. Session High/Low, Session VWAP, Opening Range) only reflect candles up to bar $T$.
+3. **Exact Warmup Handling**:
+   - Every indicator specifies its required `warmup_period`.
+   - Incomplete warmup observations are strictly preserved as `NaN`/`null` — **never replaced with fake zeros**.
+4. **Session-Aware VWAP**:
+   - Cumulative volume-weighted price resetting dynamically at exchange session boundaries via `SessionCalendar` (NSE, 24/7 continuous crypto, Sunday-to-Friday forex).
+5. **Candle-Based CVD Proxy**:
+   - Formula: $\text{delta} = \text{Volume} \times \left(2 \times \frac{\text{Close} - \text{Low}}{\text{High} - \text{Low}} - 1\right)$.
+   - Handles flat candles ($\text{High} == \text{Low}$) safely without zero-division errors.
+   - **Important Disclaimer**: This is a candle-derived synthetic proxy based on intrabar price displacement and total volume. It is **NOT** true exchange-level bid/ask order-flow CVD.
+6. **Black-Scholes Options Engine & Greeks**:
+   - Numerically stable European option pricing: Call, Put, Delta, Gamma, Theta (daily/annual), Vega (1% vol step/annual).
+   - Handles edge cases: Expired contracts ($T \le 0$), zero volatility ($\sigma \le 0$), deep ITM/OTM.
+   - **Delta-Target Strike Selection**: Finds closest available strike for a target delta (e.g. 0.50 ATM, 0.75 ITM, 0.30 OTM).
+   - **Critical Disclaimer**: *Historical/theoretical option pricing is not a substitute for live executable option quotes. Live execution must always use actual broker/exchange orderbook quotes.*
+
+### Available Indicators in Registry (29 Total)
+- **Trend**: `SMA`, `EMA`, `WMA`, `HMA`, `ADX` (+DI, -DI), `Supertrend`
+- **Momentum**: `RSI` (Wilder's), `StochasticOscillator`, `StochasticRSI`, `MACD`, `ROC`
+- **Volatility**: `ATR` (Wilder's), `BollingerBands`, `BollingerBandWidth`, `HistoricalVolatility`
+- **Volume & Flow**: `OBV`, `VolumeSMA`, `VolumeRatio`, `SessionVWAP`, `CVDProxy`
+- **Price Action**: `Returns`, `LogReturns`, `HighLowRange`, `TrueRange`, `PercentageChange`, `RollingHigh`, `RollingLow`
+- **Session Features**: `SessionFeatures` (Session Open, High, Low, Close, Opening Range High/Low, VWAP Deviation)
+- **Ichimoku**: `IchimokuCloud` (Tenkan, Kijun, Senkou A, Senkou B, Chikou, Cloud Bullish/Bearish, Width, Price Above/Inside/Below Cloud)
+- **Options**: `calculate_black_scholes`, `DeltaTargetOptionSelector`
+
+### Feature Pipeline Example
+
+```python
+from indicators import (
+    FeaturePipeline, EMA, RSI, ATR, SessionVWAP,
+    IchimokuCloud, DeltaTargetOptionSelector, calculate_black_scholes
+)
+from data.sessions import NSESessionCalendar
+
+# Assemble pipeline
+calendar = NSESessionCalendar()
+pipeline = FeaturePipeline([
+    EMA(period=20),
+    EMA(period=50),
+    RSI(period=14),
+    ATR(period=14),
+    SessionVWAP(calendar=calendar),
+    IchimokuCloud(),
+])
+
+# Calculate features
+features_df = pipeline.calculate(ohlcv_bars)
+
+# Filter only warm rows ready for signal generation
+warm_df = pipeline.get_warm_data(ohlcv_bars)
+```
+
+### Run Indicator Research Demonstration
+
+```bash
+cd trading_platform
+python -m scripts.test_indicators
+```
+
+---
+
 ## Development Roadmap
 
 | Phase | Status | Description |
