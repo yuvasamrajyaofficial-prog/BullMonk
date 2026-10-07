@@ -56,7 +56,7 @@ const LiveTickerBar = () => {
 
       <div style={styles.engineTag}>
         <FaCheckCircle color="#00F5A0" size={12} />
-        <span>202/202 Tests Passing</span>
+        <span>219/219 Tests Passing</span>
       </div>
     </div>
   );

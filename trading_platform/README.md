@@ -226,14 +226,27 @@ python -m data.test_data_pipeline
 
 ---
 
+## Quantitative Strategy Backtesting Engine (Phase 3)
+
+Execute deterministic, event-driven backtesting with Indian statutory costs, slippage, and institutional tearsheets:
+
+```bash
+cd trading_platform
+python -m scripts.run_backtest --strategy dual_ema --timeframe 15m
+python -m scripts.run_backtest --strategy orb --timeframe 5m
+python -m scripts.run_backtest --strategy bollinger --timeframe 15m
+```
+
+---
+
 ## Development Roadmap
 
 | Phase | Status | Description |
 |---|---|---|
 | Phase 1 | ✅ Complete | Engineering foundation & modular architecture |
 | Phase 2 | ✅ Complete | Quantitative market-data subsystem & NIFTY implementation |
-| Phase 3 | ⏳ Planned | Deterministic backtest engine with order queue matching |
-| Phase 4 | ⏳ Planned | Paper broker & DhanHQ broker adapter |
+| Phase 3 | ✅ Complete | Deterministic event-driven backtester, matching engine & Indian market taxes |
+| Phase 4 | ⏳ Planned | Paper broker & DhanHQ low-latency broker adapter |
 | Phase 5 | ⏳ Planned | Walk-forward testing + Monte Carlo analysis |
 | Phase 6 | ⏳ Planned | Zerodha / Upstox / Binance adapters |
 | Phase 7 | ⏳ Planned | Multi-user SaaS, billing, and strategy marketplace |

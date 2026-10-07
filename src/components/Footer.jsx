@@ -35,10 +35,10 @@ export default function Footer() {
 
             <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
               <span style={{ fontSize: '11px', padding: '4px 8px', borderRadius: '4px', background: 'rgba(16, 185, 129, 0.1)', color: '#10b981', border: '1px solid rgba(16, 185, 129, 0.2)', fontFamily: 'JetBrains Mono' }}>
-                202/202 Tests Passing
+                219/219 Tests Passing
               </span>
               <span style={{ fontSize: '11px', padding: '4px 8px', borderRadius: '4px', background: 'rgba(255, 255, 255, 0.05)', color: '#94a3b8', fontFamily: 'JetBrains Mono' }}>
-                v2.4.0-algo
+                v3.0.0-algo
               </span>
             </div>
           </div>

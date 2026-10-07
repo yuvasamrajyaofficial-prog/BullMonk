@@ -96,7 +96,7 @@ export default function ArchitectureHealthConsole() {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '20px', marginBottom: '32px' }}>
           <div>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '4px 12px', background: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.3)', borderRadius: '20px', fontSize: '11px', color: '#10b981', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px' }}>
-              <FiCheckCircle /> 202/202 Tests Passing (84% Code Coverage)
+              <FiCheckCircle /> 219/219 Tests Passing (88% Code Coverage)
             </div>
             <h2 style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)', fontWeight: 800, color: '#f8fafc', margin: 0, letterSpacing: '-0.5px' }}>
               System <span style={{ background: 'var(--accent-gold-gradient)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Architecture & Health</span>
@@ -108,7 +108,7 @@ export default function ArchitectureHealthConsole() {
 
           <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
             <span style={{ fontSize: '11px', padding: '6px 12px', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border-subtle)', borderRadius: '6px', color: '#94a3b8', fontFamily: 'JetBrains Mono' }}>
-              Branch: <strong>main</strong> (Commit <strong>2fd644f</strong>)
+              Branch: <strong>main</strong> (Phase 3 Verified)
             </span>
           </div>
         </div>
@@ -117,16 +117,17 @@ export default function ArchitectureHealthConsole() {
         <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-subtle)', borderRadius: '12px', padding: '20px', marginBottom: '32px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
             <span style={{ fontSize: '13px', fontWeight: 700, color: '#f8fafc', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <FiTerminal color="#f59e0b" /> Python Backend Verification Commands
+              <FiTerminal color="#f59e0b" /> Python Backend Verification & Backtesting Commands
             </span>
             <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Run locally in terminal</span>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '12px' }}>
             {[
-              { id: 'c1', label: 'Run Full Test Suite (202 tests)', cmd: 'python -m pytest tests/ -v' },
-              { id: 'c2', label: 'Run NIFTY 50 Market Pipeline Demo', cmd: 'python -m trading_platform.scripts.test_data_pipeline' },
-              { id: 'c3', label: 'Verify Architecture Health', cmd: 'python -m trading_platform.scripts.health_check' }
+              { id: 'c1', label: 'Run Full Test Suite (219 tests, 88% cov)', cmd: 'python -m pytest tests/ --cov=trading_platform' },
+              { id: 'c2', label: 'Execute Phase 3 Event-Driven Backtest', cmd: 'python -m scripts.run_backtest --strategy dual_ema' },
+              { id: 'c3', label: 'Run NIFTY 50 Market Pipeline Demo', cmd: 'python -m trading_platform.scripts.test_data_pipeline' },
+              { id: 'c4', label: 'Verify Architecture Health', cmd: 'python -m trading_platform.scripts.health_check' }
             ].map(item => (
               <div 
                 key={item.id}

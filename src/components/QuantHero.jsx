@@ -11,7 +11,7 @@ const QuantHero = ({ onNavigate }) => {
         <div style={styles.tagWrapper}>
           <div className="section-tag">
             <FaBolt size={11} color="#F5A623" />
-            <span>Phase 2 Quantitative Engine Verified</span>
+            <span>Phase 3 Quantitative Backtest Engine Verified</span>
           </div>
         </div>
 
@@ -80,7 +80,7 @@ const QuantHero = ({ onNavigate }) => {
               <span style={styles.statLabel}>ENGINE INTEGRITY</span>
               <span className="badge badge-profit"><FaCheckCircle size={10} /> 100% Pass</span>
             </div>
-            <div style={{ ...styles.statVal, color: 'var(--profit-green)' }} className="font-mono">202 / 202</div>
+            <div style={{ ...styles.statVal, color: 'var(--profit-green)' }} className="font-mono">219 / 219</div>
             <div style={styles.statSub}>Unit & integration tests passing</div>
           </div>
 
