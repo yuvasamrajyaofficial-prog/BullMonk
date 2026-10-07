@@ -101,6 +101,17 @@ class FeatureCalculationRequest(BaseModel):
 # Endpoints
 # -----------------------------------------------------------------------------
 
+@app.get("/")
+def root():
+    """Welcome and quick links."""
+    return {
+        "message": "BullMonk Quantitative Trading Engine API is running!",
+        "interactive_docs": "/docs",
+        "health": "/api/health",
+        "indicators": "/api/indicators",
+    }
+
+
 @app.get("/api/health")
 def health_check():
     """Health status and platform metadata."""
