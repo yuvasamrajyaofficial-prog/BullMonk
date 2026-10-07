@@ -1,55 +1,71 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ParticleBackground from './components/ParticleBackground';
+import LiveTickerBar from './components/LiveTickerBar';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Problem from './components/Problem';
-import Solution from './components/Solution';
-import TokenPower from './components/TokenPower';
-import TheOrder from './components/TheOrder';
-import NeetiBook from './components/NeetiBook';
-import Roadmap from './components/Roadmap';
-import Quiz from './components/Quiz';
-import CallToAction from './components/CallToAction';
+import QuantHero from './components/QuantHero';
+import MarketDataExplorer from './components/MarketDataExplorer';
+import NiftyOptionChainView from './components/NiftyOptionChainView';
+import AIStrategyLab from './components/AIStrategyLab';
+import BacktestingConsole from './components/BacktestingConsole';
+import RiskAndExecutionGateway from './components/RiskAndExecutionGateway';
+import ArchitectureHealthConsole from './components/ArchitectureHealthConsole';
 import Footer from './components/Footer';
-import MarketZone from './components/MarketZone';
-import FullChartPage from './components/FullChartPage';
-import PhilosophyPage from './components/PhilosophyPage';
-import BottomNav from './components/BottomNav';
 import './index.css';
 
 function App() {
-  const [view, setView] = React.useState('landing');
-
-  if (view === 'chart') {
-    return <FullChartPage onBack={() => setView('landing')} />;
-  }
-
-  if (view === 'philosophy') {
-    return <PhilosophyPage onBack={() => setView('landing')} />;
-  }
+  const [activeSection, setActiveSection] = useState('overview');
 
   return (
-    <>
+    <div className="quant-app" style={{ minHeight: '100vh', background: 'var(--bg-obsidian)', color: '#f8fafc', position: 'relative' }}>
+      {/* Background Matrix Particles */}
       <ParticleBackground />
-      <Navbar setView={setView} />
-      
-      {/* Main Content Wrapper - ensures it sits above particles */}
-      <div style={{ position: 'relative', zIndex: 1 }}>
-        <Hero />
-        <Problem />
-        <Solution />
-        <TokenPower />
-        <MarketZone onOpenFullChart={() => setView('chart')} />
-        <TheOrder />
-        <NeetiBook />
-        <Roadmap />
-        <Quiz />
-        <CallToAction />
-        <Footer />
+
+      {/* Real-Time Live Ticker Bar */}
+      <div style={{ position: 'relative', zIndex: 30 }}>
+        <LiveTickerBar />
       </div>
 
-      <BottomNav view={view} setView={setView} />
-    </>
+      {/* Main Navigation Bar */}
+      <Navbar 
+        activeTab={activeSection} 
+        setActiveTab={setActiveSection} 
+        activeSection={activeSection} 
+        setActiveSection={setActiveSection} 
+      />
+
+      {/* Main Application Container */}
+      <main style={{ position: 'relative', zIndex: 1 }}>
+        {/* Institutional Quant Hero Section */}
+        <QuantHero 
+          onNavigate={(id) => {
+            setActiveSection(id);
+            const el = document.getElementById(id);
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+          }} 
+        />
+
+        {/* Market Data & Synthetic Engine Subsystem */}
+        <MarketDataExplorer />
+
+        {/* NIFTY 50 Option Chain & Greeks Ladder */}
+        <NiftyOptionChainView />
+
+        {/* AI Prompt-to-Strategy Engine */}
+        <AIStrategyLab />
+
+        {/* High-Fidelity Backtesting & Monte Carlo Console */}
+        <BacktestingConsole />
+
+        {/* Pre-Trade Risk Management & Multi-Broker Gateway */}
+        <RiskAndExecutionGateway />
+
+        {/* System Architecture & Test Verification Status */}
+        <ArchitectureHealthConsole />
+      </main>
+
+      {/* Institutional Quantitative Trading Footer */}
+      <Footer />
+    </div>
   );
 }
 

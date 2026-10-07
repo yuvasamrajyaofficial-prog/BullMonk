@@ -1,162 +1,132 @@
 import React, { useState } from 'react';
-import { FaTelegramPlane, FaSun, FaMoon, FaBars, FaTimes } from 'react-icons/fa';
-import { FaXTwitter } from 'react-icons/fa6';
+import { FaSun, FaMoon, FaBars, FaTimes, FaTerminal, FaShieldAlt, FaChartLine, FaRobot, FaLayerGroup } from 'react-icons/fa';
 import { useTheme } from '../context/ThemeContext';
 
-const Navbar = ({ setView }) => {
+const Navbar = ({ activeTab, setActiveTab }) => {
   const { theme, toggleTheme } = useTheme();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  const handleNav = (target) => {
-    setMenuOpen(false);
-    if (target === 'philosophy') {
-      setView && setView('philosophy');
-    } else if (target === 'landing') {
-      setView && setView('landing');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      // Scroll to section
-      setView && setView('landing');
-      setTimeout(() => {
-        const el = document.getElementById(target);
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
+  const navItems = [
+    { id: 'overview', label: 'Terminal', icon: FaTerminal },
+    { id: 'market-data', label: 'Market Data & NIFTY', icon: FaChartLine },
+    { id: 'option-chain', label: 'Option Chain', icon: FaLayerGroup },
+    { id: 'ai-lab', label: 'AI Strategy Lab', icon: FaRobot },
+    { id: 'backtesting', label: 'Backtester', icon: FaChartLine },
+    { id: 'risk-gateway', label: 'Risk & Execution', icon: FaShieldAlt },
+    { id: 'architecture', label: 'Architecture', icon: FaLayerGroup },
+  ];
+
+  const handleSelect = (id) => {
+    setActiveTab(id);
+    setMobileOpen(false);
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
     <>
-      <nav className="navbar" style={styles.nav}>
+      <nav style={styles.nav}>
         <div className="container flex-between" style={styles.container}>
           {/* Logo */}
-          <div className="logo" style={styles.logo} onClick={() => handleNav('landing')}>
-            <span className="text-gradient-gold" style={{ fontSize: '1.5rem', fontWeight: 800, fontFamily: 'var(--font-heading)' }}>
-              BullMonk
-            </span>
+          <div style={styles.logoGroup} onClick={() => handleSelect('overview')}>
+            <span className="text-gradient-gold" style={styles.brand}>BullMonk</span>
+            <span style={styles.badgeQuant}>QUANT AI</span>
           </div>
 
-          {/* Links (Desktop) */}
-          <div className="nav-links hide-mobile" style={styles.links}>
-            <a href="#" onClick={(e) => { e.preventDefault(); handleNav('philosophy'); }} style={styles.link}>Philosophy</a>
-            <a href="#token" style={styles.link}>Token</a>
-            <a href="#order" style={styles.link}>The Order</a>
+          {/* Nav Items (Desktop) */}
+          <div className="hide-mobile" style={styles.links}>
+            {navItems.map(item => {
+              const Icon = item.icon;
+              const isActive = activeTab === item.id;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => handleSelect(item.id)}
+                  style={{
+                    ...styles.navBtn,
+                    color: isActive ? 'var(--accent-gold)' : 'var(--text-secondary)',
+                    borderBottom: isActive ? '2px solid var(--accent-gold)' : '2px solid transparent',
+                  }}
+                >
+                  <Icon size={12} style={{ opacity: isActive ? 1 : 0.6 }} />
+                  {item.label}
+                </button>
+              );
+            })}
           </div>
 
-          {/* CTA & Socials */}
-          <div className="nav-actions flex-center" style={styles.actions}>
-            <a href="https://t.me/bullmonkcoin" target="_blank" rel="noreferrer" style={styles.socialIcon}>
-              <FaTelegramPlane size={20} />
-            </a>
-            <a href="https://x.com" target="_blank" rel="noreferrer" style={styles.socialIcon}>
-              <FaXTwitter size={20} />
-            </a>
-            <button className="btn btn-outline hide-mobile" style={{ padding: '0.4rem 1.5rem', fontSize: '0.9rem', marginLeft: '0.5rem' }}>
-              Buy Now
+          {/* Actions & Session indicators */}
+          <div style={styles.actions}>
+            {/* NSE Market Session Indicator */}
+            <div className="hide-mobile" style={styles.sessionPill}>
+              <span className="status-dot status-dot-green" />
+              <span>NSE: 09:15-15:30 IST</span>
+            </div>
+
+            {/* Launch Paper Trading Button */}
+            <button
+              className="btn btn-primary btn-sm hide-mobile"
+              onClick={() => handleSelect('ai-lab')}
+              style={{ fontWeight: 700 }}
+            >
+              AI Strategy Lab
             </button>
 
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className="btn btn-outline"
-              style={{ padding: '0.4rem 0.8rem', fontSize: '1rem', marginLeft: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              style={styles.iconBtn}
               aria-label="Toggle Theme"
+              title="Toggle theme"
             >
-              {theme === 'dark' ? <FaSun /> : <FaMoon />}
+              {theme === 'dark' ? <FaSun size={15} color="#F5A623" /> : <FaMoon size={15} color="#F5A623" />}
             </button>
 
-            {/* Hamburger (Mobile Only) */}
+            {/* Mobile Hamburger */}
             <button
               className="hide-desktop"
-              onClick={() => setMenuOpen(!menuOpen)}
-              style={{
-                background: 'transparent',
-                border: '1px solid rgba(245, 166, 35, 0.3)',
-                color: 'var(--accent-gold)',
-                padding: '6px 8px',
-                borderRadius: '6px',
-                cursor: 'pointer',
-                marginLeft: '8px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-              aria-label="Menu"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              style={styles.iconBtn}
+              aria-label="Toggle Navigation"
             >
-              {menuOpen ? <FaTimes size={18} /> : <FaBars size={18} />}
+              {mobileOpen ? <FaTimes size={18} /> : <FaBars size={18} />}
             </button>
           </div>
         </div>
       </nav>
 
-      {/* Mobile Slide-Down Menu */}
-      <div style={{
-        position: 'fixed',
-        top: menuOpen ? '65px' : '-300px',
-        left: 0,
-        width: '100%',
-        zIndex: 99,
-        background: 'var(--bg-card)',
-        backdropFilter: 'blur(16px)',
-        borderBottom: '1px solid rgba(245, 166, 35, 0.15)',
-        padding: menuOpen ? '24px 20px' : '0 20px',
-        transition: 'all 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
-        opacity: menuOpen ? 1 : 0,
-        overflow: 'hidden',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '16px'
-      }}>
-        <a href="#" onClick={(e) => { e.preventDefault(); handleNav('philosophy'); }} style={styles.mobileLink}>
-          Philosophy
-        </a>
-        <a href="#" onClick={(e) => { e.preventDefault(); handleNav('token'); }} style={styles.mobileLink}>
-          Token
-        </a>
-        <a href="#" onClick={(e) => { e.preventDefault(); handleNav('order'); }} style={styles.mobileLink}>
-          The Order
-        </a>
-        <a href="#" onClick={(e) => { e.preventDefault(); handleNav('market'); }} style={styles.mobileLink}>
-          Markets
-        </a>
-        <a href="#" onClick={(e) => { e.preventDefault(); handleNav('neeti'); }} style={styles.mobileLink}>
-          Neeti Book
-        </a>
-        <button
-          className="btn"
-          onClick={() => setMenuOpen(false)}
-          style={{
-            width: '100%',
-            padding: '12px',
-            background: 'rgba(245, 166, 35, 0.15)',
-            border: '1px solid var(--accent-gold)',
-            color: 'var(--accent-gold)',
-            borderRadius: '8px',
-            cursor: 'pointer',
-            fontFamily: 'var(--font-heading)',
-            fontSize: '0.9rem',
-            textTransform: 'uppercase',
-            letterSpacing: '1px',
-            marginTop: '8px'
-          }}
-        >
-          Buy Now
-        </button>
-      </div>
-
-      {/* Overlay backdrop */}
-      {menuOpen && (
-        <div
-          onClick={() => setMenuOpen(false)}
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            background: 'rgba(0,0,0,0.5)',
-            zIndex: 98
-          }}
-        />
+      {/* Mobile Menu Drawer */}
+      {mobileOpen && (
+        <div style={styles.mobileDrawer}>
+          <div style={{ padding: '1rem' }}>
+            <div style={{ marginBottom: '1rem', paddingBottom: '0.5rem', borderBottom: '1px solid var(--border-subtle)' }}>
+              <div style={styles.sessionPill}>
+                <span className="status-dot status-dot-green" />
+                <span>NSE Market: ACTIVE</span>
+              </div>
+            </div>
+            {navItems.map(item => {
+              const Icon = item.icon;
+              const isActive = activeTab === item.id;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => handleSelect(item.id)}
+                  style={{
+                    ...styles.mobileNavBtn,
+                    color: isActive ? 'var(--accent-gold)' : 'var(--text-primary)',
+                    background: isActive ? 'rgba(245, 166, 35, 0.1)' : 'transparent',
+                  }}
+                >
+                  <Icon size={14} color={isActive ? '#F5A623' : '#94A3B8'} />
+                  {item.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
       )}
     </>
   );
@@ -164,55 +134,113 @@ const Navbar = ({ setView }) => {
 
 const styles = {
   nav: {
-    position: 'fixed',
-    top: 0,
+    position: 'sticky',
+    top: '32px',
     width: '100%',
-    zIndex: 100,
-    background: 'var(--bg-card)',
-    backdropFilter: 'blur(10px)',
-    borderBottom: '1px solid var(--border-subtle)',
-    padding: '1rem 0',
+    background: 'var(--bg-glass)',
+    backdropFilter: 'blur(20px)',
+    borderBottom: '1px solid var(--border-card)',
+    zIndex: 90,
   },
   container: {
-    height: '100%',
+    height: '62px',
   },
-  logo: {
-    cursor: 'pointer'
+  logoGroup: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.6rem',
+    cursor: 'pointer',
+  },
+  brand: {
+    fontSize: '1.45rem',
+    fontWeight: 800,
+    letterSpacing: '-0.02em',
+  },
+  badgeQuant: {
+    fontSize: '0.65rem',
+    fontWeight: 800,
+    letterSpacing: '0.08em',
+    padding: '2px 6px',
+    borderRadius: '4px',
+    background: 'rgba(245, 166, 35, 0.15)',
+    color: 'var(--accent-gold)',
+    border: '1px solid rgba(245, 166, 35, 0.3)',
   },
   links: {
     display: 'flex',
-    gap: '2rem',
+    alignItems: 'center',
+    gap: '0.2rem',
+    height: '100%',
   },
-  link: {
-    color: 'var(--text-secondary)',
-    textDecoration: 'none',
-    fontSize: '0.9rem',
-    fontWeight: 500,
-    textTransform: 'uppercase',
-    letterSpacing: '1px',
-    transition: 'color 0.3s ease',
-  },
-  mobileLink: {
-    color: 'var(--text-primary)',
-    textDecoration: 'none',
-    fontSize: '1.05rem',
+  navBtn: {
+    background: 'transparent',
+    border: 'none',
+    padding: '0 0.85rem',
+    height: '62px',
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '0.45rem',
+    fontSize: '0.86rem',
     fontWeight: 600,
-    textTransform: 'uppercase',
-    letterSpacing: '2px',
-    fontFamily: 'var(--font-heading)',
-    padding: '8px 0',
-    borderBottom: '1px solid var(--border-subtle)',
-    transition: 'color 0.3s ease',
+    cursor: 'pointer',
+    transition: 'all 0.18s ease',
   },
   actions: {
-    gap: '0.7rem'
-  },
-  socialIcon: {
-    color: 'var(--text-secondary)',
-    transition: 'all 0.3s ease',
     display: 'flex',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+    gap: '0.75rem',
+  },
+  sessionPill: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.45rem',
+    padding: '0.3rem 0.75rem',
+    borderRadius: '999px',
+    background: 'rgba(0, 245, 160, 0.08)',
+    border: '1px solid rgba(0, 245, 160, 0.25)',
+    color: 'var(--profit-green)',
+    fontSize: '0.74rem',
+    fontWeight: 600,
+    fontFamily: 'var(--font-mono)',
+  },
+  iconBtn: {
+    background: 'rgba(255, 255, 255, 0.05)',
+    border: '1px solid var(--border-subtle)',
+    borderRadius: '8px',
+    width: '36px',
+    height: '36px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'var(--text-primary)',
+    cursor: 'pointer',
+    transition: 'all 0.2s',
+  },
+  mobileDrawer: {
+    position: 'fixed',
+    top: '94px',
+    left: 0,
+    width: '100%',
+    background: 'var(--bg-card)',
+    backdropFilter: 'blur(24px)',
+    borderBottom: '1px solid var(--border-card)',
+    zIndex: 89,
+    boxShadow: 'var(--shadow-card)',
+  },
+  mobileNavBtn: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.75rem',
+    padding: '0.75rem 1rem',
+    borderRadius: '8px',
+    border: 'none',
+    fontSize: '0.95rem',
+    fontWeight: 600,
+    cursor: 'pointer',
+    textAlign: 'left',
+    marginBottom: '0.25rem',
+  },
 };
 
 export default Navbar;
