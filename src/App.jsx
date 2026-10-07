@@ -9,6 +9,7 @@ import AIStrategyLab from './components/AIStrategyLab';
 import BacktestingConsole from './components/BacktestingConsole';
 import RiskAndExecutionGateway from './components/RiskAndExecutionGateway';
 import ArchitectureHealthConsole from './components/ArchitectureHealthConsole';
+import IndicatorFeatureStudio from './components/IndicatorFeatureStudio';
 import Footer from './components/Footer';
 import './index.css';
 
@@ -46,6 +47,9 @@ function App() {
 
         {/* Market Data & Synthetic Engine Subsystem */}
         <MarketDataExplorer />
+
+        {/* Quantitative Indicator & Feature Engine Studio */}
+        <IndicatorFeatureStudio />
 
         {/* NIFTY 50 Option Chain & Greeks Ladder */}
         <NiftyOptionChainView />

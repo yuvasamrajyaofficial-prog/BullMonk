@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaSun, FaMoon, FaBars, FaTimes, FaTerminal, FaShieldAlt, FaChartLine, FaRobot, FaLayerGroup } from 'react-icons/fa';
+import { FaSun, FaMoon, FaBars, FaTimes, FaTerminal, FaShieldAlt, FaChartLine, FaRobot, FaLayerGroup, FaCalculator } from 'react-icons/fa';
 import { useTheme } from '../context/ThemeContext';
 
 const Navbar = ({ activeTab, setActiveTab }) => {
@@ -9,6 +9,7 @@ const Navbar = ({ activeTab, setActiveTab }) => {
   const navItems = [
     { id: 'overview', label: 'Terminal', icon: FaTerminal },
     { id: 'market-data', label: 'Market Data & NIFTY', icon: FaChartLine },
+    { id: 'feature-engine', label: 'Quant Indicators', icon: FaCalculator },
     { id: 'option-chain', label: 'Option Chain', icon: FaLayerGroup },
     { id: 'ai-lab', label: 'AI Strategy Lab', icon: FaRobot },
     { id: 'backtesting', label: 'Backtester', icon: FaChartLine },
