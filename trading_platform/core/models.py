@@ -24,6 +24,7 @@ from pydantic import BaseModel, Field, field_validator, model_validator
 
 from core.enums import (
     AssetClass,
+    DataSource,
     Exchange,
     InstrumentType,
     OptionStyle,
@@ -146,6 +147,14 @@ class OHLCVBar(BaseModel):
     open_interest: Optional[Decimal] = Field(
         default=None, description="Open interest (derivatives)"
     )
+    data_source: DataSource = Field(
+        default=DataSource.REAL, description="Data provenance (REAL, SYNTHETIC, BACKTEST_SIMULATED)"
+    )
+
+    @property
+    def is_synthetic(self) -> bool:
+        """Return True if this bar represents synthetic/simulated research data."""
+        return self.data_source == DataSource.SYNTHETIC
 
     @model_validator(mode="after")
     def validate_ohlcv_consistency(self) -> "OHLCVBar":

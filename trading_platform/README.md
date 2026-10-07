@@ -84,7 +84,15 @@ trading_platform/
 │
 ├── data/
 │   ├── interfaces.py     ← HistoricalDataProvider, LiveMarketDataProvider
-│   └── models.py         ← DataQualityReport, SubscriptionConfig
+│   ├── models.py         ← DataQualityReport, SubscriptionConfig
+│   ├── sessions.py       ← NSESessionCalendar, Crypto247, Forex, US calendars
+│   ├── nifty.py          ← NIFTY 50 index, futures, options, option chain metadata
+│   ├── synthetic.py      ← Deterministic SyntheticOHLCVGenerator
+│   ├── validation.py     ← DataValidator and ValidationReport engine
+│   ├── normalization.py  ← DataNormalizer & multi-timeframe resampler
+│   ├── cache.py          ← Columnar Parquet DataCache (save, load, list, exists)
+│   ├── providers/        ← Synthetic, Cached, and Simulated Live adapters + Registry
+│   └── test_data_pipeline.py ← End-to-end quantitative data pipeline CLI test
 │
 ├── strategies/
 │   ├── base.py           ← BaseStrategy abstract class
@@ -207,21 +215,32 @@ Expected output on a healthy environment:
 
 ---
 
+## Quantitative Market Data Pipeline
+
+Execute the end-to-end market data generation, validation, normalization, Parquet caching, and reload pipeline:
+
+```bash
+cd trading_platform
+python -m data.test_data_pipeline
+```
+
+---
+
 ## Development Roadmap
 
 | Phase | Status | Description |
 |---|---|---|
-| Phase 1 | ✅ Complete | Engineering foundation & architecture |
-| Phase 2 | ⏳ Planned | Backtest engine with order simulation |
-| Phase 3 | ⏳ Planned | Dhan broker adapter (live + paper trading) |
-| Phase 4 | ⏳ Planned | Walk-forward testing + Monte Carlo |
-| Phase 5 | ⏳ Planned | Zerodha / Upstox / Binance adapters |
-| Phase 6 | ⏳ Planned | SaaS multi-user, billing, user accounts |
-| Phase 7 | ⏳ Planned | Strategy marketplace |
+| Phase 1 | ✅ Complete | Engineering foundation & modular architecture |
+| Phase 2 | ✅ Complete | Quantitative market-data subsystem & NIFTY implementation |
+| Phase 3 | ⏳ Planned | Deterministic backtest engine with order queue matching |
+| Phase 4 | ⏳ Planned | Paper broker & DhanHQ broker adapter |
+| Phase 5 | ⏳ Planned | Walk-forward testing + Monte Carlo analysis |
+| Phase 6 | ⏳ Planned | Zerodha / Upstox / Binance adapters |
+| Phase 7 | ⏳ Planned | Multi-user SaaS, billing, and strategy marketplace |
 
 ---
 
-## Security Principles
+## Security & Data Integrity Principles
 
 1. **No hard-coded credentials** — All secrets via environment variables.
 2. **Never log secrets** — The `SanitizingFilter` redacts credential patterns.
@@ -229,7 +248,7 @@ Expected output on a healthy environment:
 4. **Fail-fast config** — Missing required production variables raise errors on startup.
 5. **Timezone safety** — All times are UTC internally; naive datetimes are rejected.
 6. **Immutable models** — Market data models are frozen (Pydantic `frozen=True`).
-7. **No fabricated data** — The system never generates synthetic market prices.
+7. **Data provenance integrity** — Real and synthetic market data are strictly partitioned (`DataSource.REAL` vs `DataSource.SYNTHETIC`). Synthetic data is never labeled as real.
 
 ---
 

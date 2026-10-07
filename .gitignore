@@ -36,3 +36,5 @@ dist/
 .pytest_cache/
 .env
 htmlcov/
+cache_storage/
+*.parquet

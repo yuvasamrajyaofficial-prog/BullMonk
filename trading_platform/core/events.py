@@ -64,16 +64,19 @@ class MarketDataEvent(Event):
 class BarEvent(Event):
     """Emitted when a new OHLCV bar is completed."""
     event_type: EventType = EventType.BAR
+    bar: Optional[Any] = None
 
 
 class TickEvent(Event):
     """Emitted on each new trade tick."""
     event_type: EventType = EventType.TICK
+    tick: Optional[Any] = None
 
 
 class QuoteEvent(Event):
     """Emitted on each new best bid/ask quote update."""
     event_type: EventType = EventType.QUOTE
+    quote: Optional[Any] = None
 
 
 class SignalEvent(Event):

@@ -92,3 +92,7 @@ dist/
 # Misc
 *.bak
 *.tmp
+
+# Market data cache (local artifacts)
+cache_storage/
+*.parquet

@@ -133,6 +133,7 @@ def check_dependencies() -> None:
         ("pydantic", "Pydantic v2"),
         ("pydantic_settings", "pydantic-settings"),
         ("pytest", "pytest"),
+        ("pyarrow", "pyarrow (Parquet)"),
     ]
     for module_name, label in required:
         check(f"{label} importable", lambda m=module_name: importlib.import_module(m))
@@ -149,6 +150,13 @@ def check_module_imports() -> None:
         "config.settings",
         "data.interfaces",
         "data.models",
+        "data.sessions",
+        "data.nifty",
+        "data.synthetic",
+        "data.validation",
+        "data.normalization",
+        "data.cache",
+        "data.providers",
         "strategies.base",
         "strategies.models",
         "execution.interfaces",

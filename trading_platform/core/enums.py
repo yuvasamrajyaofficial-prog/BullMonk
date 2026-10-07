@@ -182,6 +182,17 @@ class Timeframe(str, Enum):
 
 
 # ──────────────────────────────────────────────
+# Data provenance
+# ──────────────────────────────────────────────
+
+class DataSource(str, Enum):
+    """Origin and provenance of market data."""
+    REAL = "REAL"
+    SYNTHETIC = "SYNTHETIC"
+    BACKTEST_SIMULATED = "BACKTEST_SIMULATED"
+
+
+# ──────────────────────────────────────────────
 # Risk
 # ──────────────────────────────────────────────
 
