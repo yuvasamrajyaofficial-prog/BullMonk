@@ -19,8 +19,17 @@ Usage:
 from __future__ import annotations
 
 import os
+import sys
+from pathlib import Path
 from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union
+
+# Ensure trading_platform is in sys.path
+_CURRENT_DIR = Path(__file__).resolve().parent
+_PARENT_DIR = _CURRENT_DIR.parent
+for _p in (str(_CURRENT_DIR), str(_PARENT_DIR)):
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
 import numpy as np
 import pandas as pd
 from fastapi import FastAPI, HTTPException, Query
@@ -252,4 +261,4 @@ def calculate_feature_pipeline(req: FeatureCalculationRequest):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("trading_platform.api:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
